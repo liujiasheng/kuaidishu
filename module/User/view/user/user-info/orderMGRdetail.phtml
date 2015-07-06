@@ -1,0 +1,192 @@
+<?php
+?>
+<div class="orderMGRdetail">
+<div class="content-top">
+    <h5 class="ContentHeadTitle">订单管理</h5>
+    <hr>
+</div>
+
+
+<div class="detailContent">
+    <!--//订单信息-->
+    <div class="detailHeader">
+        <dl>
+            <dt class="msgHeader">订单信息</dt>
+            <dd><div style="display: inline-block">
+                    订单号：<?php use Application\Model\OrderState;
+                    use Application\Model\OrderStateMsg;
+
+                    echo $this->data["Order"]->ID; ?>
+                </div>
+                <div>
+                    订单状态：<?php
+                    /*
+                                        1:Wait Confirm
+                                        2:Confirm and Appoint Worker
+                                        3:Reject and Set Comment
+                                        9:End Mission
+                                        */
+
+                    switch($this->data["Order"]->State){
+                        case OrderState::WAITING_CONFIRM:
+                            echo OrderStateMsg::WAITING_CONFIRM;
+                            break;
+                        case OrderState::CONFIRM_AND_APPOINT_TO_WORKER:
+                            echo OrderStateMsg::CONFIRM_AND_APPOINT_TO_WORKER;
+                            break;
+                        case OrderState::REJECT_AND_SET_COMMENT:
+                            echo OrderStateMsg::REJECT_AND_SET_COMMENT;
+                            ?><div>
+                            拒绝原因：<?php
+                            if($this->data["Order"]->Comment=="")
+                                echo "无";
+                            else
+                                echo $this->data["Order"]->Comment;?>
+                            </div>
+                            <?php
+                            break;
+                        case OrderState::END_MISSION:
+                            echo OrderStateMsg::END_MISSION;
+                            break;
+                        default:
+                            echo OrderStateMsg::OTHER;
+                    }
+                    ?>
+                </div>
+                <div>
+                    备注：<?php
+                    if($this->data["Order"]->Remark=="")
+                        echo "无";
+                    else
+                        echo $this->data["Order"]->Remark;
+                    ?>
+                </div></dd>
+        </dl>
+
+
+    </div>
+<!--//收货人信息-->
+<div class="receiverContent">
+    <dl>
+        <dt class="msgHeader">收货人信息</dt>
+        <dd>
+            <ul>
+                <li>收&nbsp;货&nbsp;人：<?php echo $this->data["Order"]->Name; ?></li>
+                <li>地&nbsp;&nbsp;&nbsp;&nbsp;址：<?php $order = $this->data["Order"];
+                    echo $order->Domain . " " . $order->Domain2 . " " . $order->Domain3 . " " . $order->Address ?></li>
+                <li>手机号码：<?php echo $order->Phone; ?></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--//订单详情-->
+<div class="goodsContent">
+    <dl>
+        <dt class="msgHeader">商品清单</dt>
+        <dd>
+            <table class="table table-bordered" style="text-align: center;">
+                <thead class="table-header">
+                <tr>
+                    <td>商品编号</td>
+                    <td>商品图片</td>
+                    <td>商品名称</td>
+                    <td>商品价格</td>
+                    <td>商品数量</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <?php $detail = $this->data["detail"][$order->ID];
+                foreach($detail as $ID=>$goods):
+                    ?>
+                    <tbody>
+                    <tr>
+                        <td style="vertical-align: 50%"><?php echo $goods["ID"];?></td>
+                        <td><img id="<?php echo $goods['ID'];?>" style="padding: 1px;width: 50px;height: 50px;" title="<?php echo $goods['Name']; ?>" src="http://<?php echo imgServer ?>/goodsimg/tiny/<?php echo $goods['Image'];?>"></td>
+                        <td><?php echo $goods["Name"];?></td>
+                        <td><?php echo $goods["Price"];?></td>
+                        <td><?php echo $goods["Count"];?></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                <?php endforeach; ?>
+            </table>
+        </dd>
+    </dl>
+
+    <div class="totalMoney">
+        总金额：<span class="money"><?php echo number_format($order->Total, 2);?></span>元
+    </div>
+</div>
+
+</div>
+</div>
+
+<style>
+    .orderMGRdetail{
+        font-family: simsun,serif;
+    }
+    .content-top {
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+    .content-top > hr {
+        border-width: 2px 0 0;
+        border-color: red;
+        margin-bottom: 0;
+        margin-top: 12px;
+    }
+
+    .ContentHeadTitle {
+        font-size: 20px;
+        margin-top: 12px;
+        margin-left: 12px;
+        font-weight: bolder;
+    }
+
+    .detailHeader{
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .detailContent{
+        border: 1px solid #ddd;
+        padding: 5px;
+        margin-top: 10px;
+    }
+
+    .receiverContent{
+        border-top: 1px solid #ddd;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .goodsContent{
+        font-family: simsun,serif;
+        border-top: 1px solid #ddd;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .msgHeader {
+        padding-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .table-header{
+        background-color: #ddd;
+    }
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        vertical-align: 50%;
+    }
+
+    .totalMoney{
+        position: inherit;
+        text-align: right;
+        font-size: 28px;
+    }
+
+    .money {
+        color: #ff3c3c;
+        font-weight: bold;
+    }
+</style>

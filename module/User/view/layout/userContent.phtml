@@ -1,0 +1,24 @@
+
+
+
+<div>
+<div class="col-md-2 col-sm-2 col-xs-2 userinfo-menu-fix">
+<?php if($this->menu) echo $this->menu;?>
+</div>
+
+
+<div class="col-md-10 col-sm-10 col-xs-10 userinfo-content-fix">
+<?php if($this->content) echo $this->content;?>
+</div>
+</div>
+
+
+ <style>
+     .userinfo-menu-fix{
+         padding-left: 0;
+         padding-right: 0;
+     }
+     .userinfo-content-fix{
+         padding-right: 0;
+     }
+ </style>

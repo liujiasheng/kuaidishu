@@ -1,0 +1,38 @@
+<div class="row-fluid">
+    <div class="col-sm-2">
+        <a href="/">
+            <img class="home-logo" src="/images/logo.jpg"/>
+        </a>
+    </div>
+    <h2 class="col-sm-6" style="padding-top: 30px; margin-left: 10px;">系统管理</h2>
+    <div class="pull-right">
+        <button class="btn btn-default" onclick="adminExpand()"><span class="glyphicon glyphicon-resize-horizontal"></span></button>
+    </div>
+    <div class="pull-right">
+        <button id="toggleMenuBtn" class="btn btn-default" onclick="adminHideMenu()">hide menu</span></button>
+    </div>
+</div>
+
+<script>
+    var beforeWidth = "1600px";
+    function adminExpand(){
+        var t = $(".container").css("width");
+        $(".container").css("width",beforeWidth);
+        beforeWidth = t;
+    }
+
+    var menuShown = true;
+    function adminHideMenu(){
+        if(menuShown){
+            $('#container-menu').hide();
+            $('#container-content').removeClass().addClass('col-md-12');
+            menuShown = false;
+            $('#toggleMenuBtn').text('show menu');
+        }else{
+            $('#container-menu').show();
+            $('#container-content').removeClass().addClass('col-md-10');
+            menuShown = true;
+            $('#toggleMenuBtn').text('hide menu');
+        }
+    }
+</script>

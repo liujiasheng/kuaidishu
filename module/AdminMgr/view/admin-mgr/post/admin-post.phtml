@@ -1,0 +1,142 @@
+<div class="col-md-2">
+    <?php
+    if ($this->menu)
+        echo $menu; ?>
+</div>
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button id="addPost" class="btn btn-default col-sm-1">添加文章</button>
+        <select id="post_type" class="col-sm-2" style="margin-left: 10px">
+            <option value="">全部分类</option>
+            <?php foreach($this->typeList as $type):?>
+            <option <?php echo $this->searchInfo['type']==$type["Type"]?"selected":"";?> value="<?php echo $type['Type'];?>"><?php echo $type['Type'];?></option>
+            <?php endforeach;?>
+        </select>
+        <select id="post_source" class="col-sm-2" style="margin-left: 10px" >
+            <option value="">全部来源</option>
+            <?php foreach($this->sourceList as $source):?>
+                <option <?php echo $this->searchInfo['source']==$source["Source"]?"selected":"";?> value="<?php echo $source["Source"];?>"><?php echo $source["Source"];?></option>
+            <?php endforeach;?>
+        </select>
+
+        <div class="input-group col-sm-3" style="padding-left: 10px">
+            <input id="searchText" type="text" class="form-control" style="height: 30px;" placeholder="标题、简介或备注搜索" value="<?php echo $this->searchInfo['searchText'];?>">
+                <span class="input-group-btn">
+                    <button id="searchBtn" class="btn btn-default" type="button">搜索</button>
+                </span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>编号</td>
+                <td>标题</td>
+                <td>作者</td>
+                <td>分类</td>
+                <td>来源</td>
+                <td>简介</td>
+<!--                <td>备注</td>-->
+                <td>日期</td>
+<!--                <td>封面图片</td>-->
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            if ($this->list)
+                foreach ($this->list as $post):
+                    ?>
+                    <tr>
+                        <td><?php echo $post["ID"]; ?></td>
+                        <td><?php echo $post["Title"]; ?></td>
+                        <td><?php echo $post["Author"]; ?></td>
+                        <td><?php echo $post["Type"]; ?></td>
+                        <td><?php echo $post["Source"]; ?></td>
+                        <td><?php echo $post["Summary"]; ?></td>
+<!--                        <td>--><?php //echo $post["Remark"]; ?><!--</td>-->
+                        <td><?php echo $post["Date"]; ?></td>
+<!--                        <td>--><?php //echo $post["SurfacePlot"]; ?><!--</td>-->
+                        <td>
+                            <a href="#" onclick="window.open('/admin/post/edit/<?php echo $post['ID'];?>')">修改</a>
+                            <a href="#" onclick="window.open('/admin/post/<?php echo $post['ID'];?>')">查看</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <ul class="pager">
+            <li><a id="preLink" href="#">上一页</a></li>
+            <li><span>第<span id="currentPage"><?php echo $this->page; ?></span>页/共<span
+                        id="totalPage"><?php echo $this->pages; ?></span>页</span></li>
+            <li><a id="nextLink" href="#">下一页</a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+
+    $().ready(function () {
+        var page = $('#currentPage').html();
+        var total = $('#totalPage').html();
+
+        if (page == "1") {
+            $('.pager li:first-child').html('<span >上一页</span>')
+
+
+        } else {
+            $('.pager li:first-child').html('<a id="preLink" href="?page=' + (parseInt(page) - 1) +
+                '" >上一页</a>');
+            $('#preLink').on('click',function(event){
+                event.preventDefault();
+                var type = $('#post_type').val();
+                var source = $('#post_source').val();
+                var searchText = $('#searchText').val();
+                window.location.href = '?page=' + (parseInt(page) - 1)+"&type="+type+"&source="+source+"&kw="+searchText;
+            })
+
+        }
+
+        if (page == total) {
+            $('.pager li:last-child').html('<span>下一页</span>')
+        } else {
+            $('.pager li:last-child').html('<a id="nextLink" href="?page=' + (parseInt(page) + 1) +
+                '" >下一页</a>');
+            $('#nextLink').on('click',function(event){
+                event.preventDefault();
+                var type = $('#post_type').val();
+                var source = $('#post_source').val();
+                var searchText = $('#searchText').val();
+                window.location.href = '?page=' + (parseInt(page) + 1)+"&type="+type+"&source="+source+"&kw="+searchText;
+            })
+
+        }
+    });
+
+    $('#addPost').on('click',function(event){
+        window.location.href = "/admin/post/edit";
+    });
+    $('#searchBtn').on('click',function(event){
+        var page = $('#currentPage').html();
+        var type = $('#post_type').val();
+        var source = $('#post_source').val();
+        var searchText = $('#searchText').val();
+        window.location.href = '?page=' + parseInt(page)+"&type="+type+"&source="+source+"&kw="+searchText;
+    })
+
+    $('#post_type').on('change',function(){
+        var page = $('#currentPage').html();
+        var type = $('#post_type').val();
+        var source = $('#post_source').val();
+        var searchText = $('#searchText').val();
+        window.location.href = '?page=' + parseInt(page)+"&type="+type+"&source="+source+"&kw="+searchText;
+    })
+
+    $('#post_source').on('change',function(){
+        var page = $('#currentPage').html();
+        var type = $('#post_type').val();
+        var source = $('#post_source').val();
+        var searchText = $('#searchText').val();
+        window.location.href = '?page=' + parseInt(page)+"&type="+type+"&source="+source+"&kw="+searchText;
+    })
+</script>

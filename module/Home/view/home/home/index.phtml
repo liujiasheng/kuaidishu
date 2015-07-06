@@ -1,0 +1,104 @@
+
+<!--<div class="kuaidishuPanelTitle">-->
+<!--    推荐商家-->
+<!--</div>-->
+<!--<div class="kuaidishuPanel row-fluid clearfix">-->
+<!---->
+<!--    --><?php //if(isset($homeSeller)): foreach ($homeSeller as $seller): ?>
+<!--        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-3">-->
+<!--            <a href="--><?php //echo $this->basePath() ?><!--/home/seller/--><?php //echo $seller->getSellerName() ?><!--"-->
+<!--               class="thumbnail home-thumbnail sellerThumbnail">-->
+<!--                <img src="--><?php //echo \Application\Model\StaticInfo::getSellerLogoAddress()?><!----><?php //echo $seller->getLogo(); ?><!--">-->
+<!--            </a>-->
+<!---->
+<!--            <p class="seller-label">--><?php //echo $seller->getSellerName(); ?><!--</p>-->
+<!--        </div>-->
+<!--    --><?php //endforeach; endif;?>
+<!---->
+<!--</div>-->
+
+<div>
+    <?php foreach($goodsGroups as $goodsGroup):
+        if( count($goodsGroup["goods"]) < 1) continue;
+        ?>
+
+        <div class="kuaidishuPanelTitle">
+            <?php echo $goodsGroup["name"]?>
+            <div class="pull-right">
+                <a href="/search?t=g&sc=<?php echo $goodsGroup["id"]?>" style="color: #E4393C">
+                    更多<span class="glyphicon glyphicon-chevron-right" style="color: #E4393C !important"></span>
+                </a>
+            </div>
+        </div>
+        <div class="kuaidishuPanel row-fluid clearfix">
+            <?php foreach($goodsGroup["goods"] as $goods):?>
+                <div class="" style="padding-left: 5px;padding-right: 5px; float:left; width:20%">
+                    <div class="thumbnail home-thumbnail goodsThumbnail">
+
+                        <img src="<?php echo \Application\Model\StaticInfo::getGoodsMediumAddress()?><?php echo $goods->getImage()?>"
+                             style="height: 160px; width: 100%; display: block;" />
+                        <div class="goods-div">
+                            <p class="goodsThumbnailName" title="<?php echo $goods->getName() ?>"><strong><?php echo $goods->getName()?></strong></p>
+                            <p class="seller" style="display: block;"><?php echo $goods->getSellerName()?></p>
+                            <p class="pull-right"><a class="price">
+                                    <?php //echo $goods->getPrice();
+                                    $prices = \Application\Model\CommonFunctions::getPricesFromStandards($goods->getGoodsStandards());
+                                    $max = $prices["max"];
+                                    $min = $prices["min"];
+                                    echo $min;
+                                    ?>
+                                </a>元/<?php echo $goods->getUnit()?></p>
+
+                            <button
+
+                                data-toggle="popover" data-placement="bottom" data-trigger="focus" data-html="true"
+                                data-content='
+                    <div class="btn-group-sm">
+                    <?php foreach($goods->getGoodsStandards() as $standard):?>
+                    <button class="btn btn-default buy-sub-btn <?php if($standard["State"]!="1") echo "disabled"?>"
+                        onclick="addGoodsToCart(<?php echo $standard["ID"]?>, $(this).parent().parent().parent().parent().parent(), <?php echo $standard["Price"]?>, $(this).text()); addToCartEffect($(this));">
+                        <?php echo $standard["Standard"]."(".$standard["Price"]."/".$goods->getUnit().")"; ?>
+                    </button>
+                    <?php endforeach;?>
+                    </div>'
+
+                                <?php if(count($goods->getGoodsStandards()) > 1):?>
+
+                                <?php else:?>
+                                    onclick="addGoodsToCart(<?php echo $goods->getGoodsStandards()[0]["ID"]?>, $(this).parent().parent(), <?php echo $goods->getGoodsStandards()[0]["Price"]?>, '')"
+                                <?php endif;?>
+
+                                class="btn btn-default plusone <?php echo (count($goods->getGoodsStandards()) > 1)?"buy-popover":"addToCart"?>"
+                                style="width: 80px;" <?php if($goods->State==2) echo "disabled"?>>
+
+
+                                <?php if($goods->State==1) echo "购 买";
+                                elseif($goods->State==2) echo "售 罄";
+                                else echo "下 架"?>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach;?>
+        </div>
+    <?php endforeach;?>
+</div>
+
+
+<script>
+    $().ready(function(){
+        initBuyPopover();
+
+
+//        var plusHtml = '<span class="glyphicon glyphicon-plus"></span>';
+//        var minusHtml = '<span class="glyphicon glyphicon-minus"></span>';
+//        $('.classExpandLabel').click(function(){
+//            var text = $(this).html().trim();
+//            if(text == plusHtml){
+//                $(this).children('span').first().removeClass('glyphicon-plus').addClass('glyphicon-minus');
+//            }else if(text == minusHtml){
+//                $(this).children('span').first().removeClass('glyphicon-minus').addClass('glyphicon-plus');
+//            }
+//        });
+    });
+</script>

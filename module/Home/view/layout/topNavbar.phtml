@@ -1,0 +1,107 @@
+<nav class="navbar navbar-default navbar-hometop" style="width:100%;min-width: 1170px; height: 30px; padding-top: 4px; margin-bottom: 5px;">
+    <div class="container" style="width: 1170px !important;">
+        <div class="row-fluid">
+            <div class="span3 row-fluid">
+                <div class="pull-left">
+                    <a href="#" id="bookmarkme" title="add to bookmark"> <span class="glyphicon glyphicon-star"></span> 收藏</a>
+                </div>
+                <div class="pull-left" style="padding-left: 20px;">
+                    <p><span class="glyphicon glyphicon-map-marker"></span>
+                        广州大学[<a href="#">更换</a>]</p>
+                </div>
+                <!--            [<a href="#">更换</a>]-->
+            </div>
+            <div class="span3 row-fluid">
+                <div class="pull-left">
+<!--                    <b>优惠：</b><a target="_blank" href="/admin/post/36">517零食全场８折。</a>-->
+<!--                    <b>通知：</b><a target="_blank" href="/admin/post/38">休息升级一周，等待全新快递鼠。</a>-->
+                    <b>优惠：</b><a target="_blank" href="/admin/post/41">快递鼠超市第二份半价及买一送一</a>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="row-fluid">
+<!--                    <button onclick="clearCartCookie()">ClearCartCookie</button>-->
+                    <div class="pull-right" style="margin-left: 10px;">
+                        <a href="#" class="wx-qrcode"><span class="glyphicon glyphicon-qrcode"></span> 微信</a>
+                    </div>
+                    <div class="pull-right" style="margin-left: 10px">
+                        <a href="###" data-toggle="modal" data-target="#kefuModal"><span class="glyphicon glyphicon-phone"></span> 客服</a>
+                    </div>
+                    <?php if($isLogin):?>
+                        <div class="pull-right" style="margin-left: 10px;">
+                            <a href="<?php echo $this->basePath()?>/authenticate/Authenticate/logout"><span class="glyphicon glyphicon-log-out"></span> 退出</a>
+                        </div>
+                        <?php if($role == \Authenticate\AssistantClass\UserType::Admin):?>
+                            <div class="pull-right" style="margin-left: 10px;">
+
+                                <a href="<?php echo $this->basePath()?>/admin/user"><span class="glyphicon glyphicon-list"></span> 后台管理</a>
+                            </div>
+                        <?php endif;?>
+                        <?php if($role == \Authenticate\AssistantClass\UserType::Seller):?>
+                            <div class="pull-right" style="margin-left: 10px;">
+                                <a href="<?php echo $this->basePath()?>/seller/goodsMgr"><span class="glyphicon glyphicon-list"></span> 后台管理</a>
+                            </div>
+                        <?php endif;?>
+                        <div class="pull-right" style="margin-left: 10px;">
+                            <p><span class="glyphicon glyphicon-user"></span>
+                                您好，<?php echo $name?>！
+                            </p>
+                        </div>
+                    <?php else:?>
+                        <div class="pull-right" style="margin-left: 10px;">
+                            <a href="<?php echo $this->basePath()?>/register"><span class="glyphicon glyphicon-globe"></span> 注册</a>
+                        </div>
+                        <div class="pull-right" style="margin-left: 10px;">
+                            <a id="topnav-login" href="<?php echo $this->basePath()?>/userlogin"><span class="glyphicon glyphicon-user"></span> 登录</a>
+                        </div>
+                    <?php endif;?>
+                </div>
+            </div>
+        </div>
+        <div class="wx-qrcode-img" style="display: none; z-index: 999;position: absolute;">
+            <img src="http://static.kuaidishu.com/images/qrcode_for_wx.jpg" width="200px"/>
+        </div>
+    </div>
+</nav>
+
+<script>
+$(function(){
+    $('a.wx-qrcode').hover(function(){
+        var pos = $('a.wx-qrcode').position();
+        $(".wx-qrcode-img").css({left: pos.left - 150, top: pos.top + 30}).show();
+    },function(){
+        $(".wx-qrcode-img").hide();
+    });
+
+    //补全 登录地址
+    $('#topnav-login').attr('href', function( i , href){
+        return '/userlogin?redirect=' + encodeURIComponent(window.location.href);
+    });
+
+    //bookmark
+    $('#bookmarkme').click(function() {
+        if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+            window.sidebar.addPanel(document.title,window.location.href,'');
+        } else if(window.external && ('AddFavorite' in window.external)) { // IE Favorite
+            window.external.AddFavorite(location.href,document.title);
+        } else if(window.opera && window.print) { // Opera Hotlist
+            this.title=document.title;
+            return true;
+        } else { // webkit - safari/chrome
+            $.ambiance({
+                message:'请按 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D 收藏快递鼠'
+            });
+        }
+    });
+
+});
+</script>
+
+
+<!--baidu统计-->
+<div style="display: none;">
+<script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F76290ad4f06d65d34f245682d8641005' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>

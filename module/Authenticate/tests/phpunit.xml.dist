@@ -1,0 +1,16 @@
+<phpunit bootstrap="./bootstrap.php" colors="true" backupGlobals="false">
+    <testsuites>
+        <testsuite name="Authenticate Test Suite">
+            <directory suffix="AuthenticateControllerTest.php">./</directory>
+        </testsuite>
+        <testsuite name="Regiser Test Suite">
+
+            <directory suffix="RegisterControllerTest.php">./</directory>
+
+        </testsuite>
+    </testsuites>
+    <php>
+        <server name="CONTEXT_DOCUMENT_ROOT" value="G:/zendLearn/kuaidishu"/>
+        <server name="Captcha_Path" value="G:/zendLearn/kuaidishu"/>
+    </php>
+</phpunit>

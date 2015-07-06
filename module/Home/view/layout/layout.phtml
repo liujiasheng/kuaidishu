@@ -1,0 +1,79 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('快递鼠 - 45分钟免费送到你想要的') ?>
+    <?php echo $this->headMeta()->appendName('viewport', 'initial-scale=1.0, user-scalable=no') ?>
+    <meta property="qc:admins" content="45206274511413056375" />
+    <meta name="google-site-verification" content="KI7zce7kqlBVLDj4tkEpmqoVqGXbOxlgIbLXrT0eylk" />
+    <!-- Le styles -->
+    <?php
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.gif'))
+        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+        ->prependStylesheet($this->basePath() . '/css/jquery.ambiance.css')
+        ->prependStylesheet($this->basePath() . '/css/home.css')
+        ->prependStylesheet($this->basePath() . '/css/topMenu.css')
+    ?>
+
+    <!-- Scripts -->
+    <?php
+    echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+        ->prependFile($this->basePath() . '/js/jquery.min.js')
+        ->appendFile($this->basePath() . '/js/paramsCheck.js')
+        ->appendFile($this->basePath() . '/js/jquery.ambiance.js')
+        ->appendFile($this->basePath() . '/js/jquery.img_silder.js')
+        ->appendFile($this->basePath() . '/js/jquery.color.js')
+    ?>
+
+</head>
+<body>
+
+
+<?php if( $this->topNavbar) echo $this->topNavbar;?>
+<div class="container" style="width: 1170px !important">
+    <?php if($this->topHeader) echo $this->topHeader;
+           if($this->topNavigation) echo $this->topNavigation;
+    ?>
+    <?php if( $this->topMenu) echo $this->topMenu;?>
+
+    <div style="width: 100%; margin-top: 10px;">
+    <?php echo $this->content; ?>
+    </div>
+</div>
+<!-- /container -->
+
+<hr>
+<?php if($this->footer) echo $this->footer;?>
+<?php echo $this->inlineScript() ?>
+
+<!--scrolltotop plugin-->
+<div id="scrollToTop">
+    <a id="scrollup" style="cursor: pointer;"><img src="/images/scrolltotop.png" width="60px"/></a>
+</div>
+<!--end scrolltotop plugin-->
+
+</body>
+
+
+</html>
+
+<!--scrolltotop plugin-->
+<script>
+    jQuery(document).ready(function($){
+        $(window).scroll(function(){
+            if ($(this).scrollTop() < 300) {
+                $('#scrollToTop') .fadeOut();
+            } else {
+                $('#scrollToTop') .fadeIn();
+            }
+        });
+        $('#scrollup').on('click', function(){
+            $('html, body').animate({scrollTop:0}, 'slow');
+            return false;
+        });
+    });
+</script>
+<!--end scrolltotop plugin-->

@@ -1,0 +1,162 @@
+<?php
+$totalCnt = 0;
+$totalMoney = 0;
+?>
+<div style="display:inline; font-weight: bold; font-size: x-large">
+    <img src="http://static.kuaidishu.com/images/tinylogo.jpg"/>
+    <br/>
+    <span class="glyphicon glyphicon-list-alt"></span> 提交订单
+</div>
+
+<div>
+    <div style="display: inline;font-size: large;font-weight: bold">订单内容</div>
+    <div class="cart-divider"></div>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>商品</th>
+        <th width="12%">单价</th>
+        <th width="100px">数量</th>
+        <th width="12%">小计</th>
+        <th width="13%">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($goods as $goodsGroup):
+        $sellerName = reset($goodsGroup)["sellerName"];?>
+        <tr>
+            <td colspan="5" style="font-size: large; font-weight: bold;">
+                <a href="<?php echo $this->basePath()."/home/seller/".$sellerName;?>" style="color: #E4393C;">
+                    <?php echo $sellerName?></a>
+            </td>
+        </tr>
+        <?php foreach($goodsGroup as $good):
+        $totalCnt += intval($good["count"]);
+        $totalMoney += floatval( floatval($good["price"]) * intval($good["count"]) );
+        ?>
+        <tr class="tr-item">
+            <td>
+<!--                <img class="cart-image" src="--><?php //echo \Application\Model\StaticInfo::getGoodsTinyAddress().$good['image']?><!--"/>-->
+                <?php echo $good["name"]?><?php echo $good["standard"]=="默认"?"":"(".$good["standard"].")"?>
+            </td>
+            <td class="price"><?php echo $good["price"]?></td>
+            <td>
+                <button style="width: 20px; margin-right: -5px;" onclick="minOneCount($(this).next())"> - </button>
+                <input type="text" style="width: 40px; text-align: center;" class="count" min="1" onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                      disabled value="<?php echo $good["count"]?>" onchange="changeGoodsCount(<?php echo $good["id"]?>,$(this).val())" />
+                <button style="width: 20px; margin-left: -6px;" onclick="addOneCount($(this).prev())"> + </button>
+            </td>
+            <td class="total"><?php echo sprintf("%.1f",floatval($good["price"])*intval($good["count"])) ?></td>
+            <td><a href="###" onclick="delGoodsInCart(<?php echo $good["id"]?>, $(this))">删除</a> </td>
+        </tr>
+    <?php endforeach;?>
+    <?php endforeach;?>
+
+
+
+    </tbody>
+</table>
+
+
+<div>
+    <div style="display: inline;font-size: large;font-weight: bold">填写收货地址</div>
+    <div class="cart-divider"></div>
+</div>
+<div class="form-group form-inline">
+
+    <label for="Domain" class="control-label">收货人</label>
+    <div class="col-sm-12">
+        <input type="text" class="form-control" id="editInputReceiverName" placeholder="收货人姓名">
+    </div>
+    <label for="Domain" class="control-label">收货地址</label>
+    <div class="col-sm-12">
+        <select style="width: 40%" id="DomainEdit" name="Domain" class="DomainClass" onchange="getEditDomain2List($(this).val(),function(){$('#Domain3Edit').children().remove();})">
+        </select>
+
+        <div id="Domain2Block" style="display: inline;">
+            <select style="width: 40%" class="Domain2Class" id="Domain2Edit" name="Domain2" onchange="getEditDomain3List($(this).parent().prev().val(), $(this).val(), null)"></select>
+        </div>
+<br/>
+        <div id="Domain3Block" style="display: inline;">
+            <select style="width: 40%" class=" Domain3Class" id="Domain3Edit" name="Domain3"></select>
+        </div>
+        <div style="display: inline">
+            <input style="width: 40%" type="text" class="" id="editInputStreetAddress" placeholder="宿舍号">
+        </div>
+    </div>
+    <label for="Domain" class="control-label">联系电话</label>
+    <div class="col-sm-12">
+        <input type="text" class="form-control" id="editInputPhone" placeholder="手机号码">
+    </div>
+</div>
+
+
+<div>
+    <div style="display: inline;font-size: large;font-weight: bold">填写备注</div>
+    <div class="cart-divider"></div>
+</div>
+<div style="margin-top: 5px; margin-bottom: 10px">
+    <textarea id="remarkText" class="form-control" style="resize: vertical" rows="2" placeholder="可选"></textarea>
+</div>
+
+<div style="height: 30px">
+    <p class="cart-total">共 <strong class="count"><?php echo $totalCnt;?></strong> 件商品 &nbsp;&nbsp;&nbsp;
+        金额：<strong class="total"><?php echo sprintf("%.1f",$totalMoney);?></strong> </p>
+</div>
+
+<div style="padding-top: 10px;">
+    <button class="btn btn-default" onclick="window.location.href='/mobile'">继续购物</button>
+    <button class="btn btn-danger pull-right" data-loading-text="提交订单..."
+            onclick="confirmCart_mobile($(this))" >提交订单
+        <span style="color: #ffffff !important" class="glyphicon glyphicon-ok"></span></button>
+</div>
+
+<script>
+    function addOneCount(obj){
+        var t = parseInt(obj.val());
+        t++;
+        obj.val(t);
+        obj.change();
+    }
+    function minOneCount(obj){
+        var t = parseInt(obj.val());
+        if(t <= 1) return;
+        t--;
+        obj.val(t);
+        obj.change();
+    }
+
+    $().ready(function(){
+        <?php if(isset($delivery)):?>
+        $('#editInputReceiverName').val('<?php echo $delivery["Name"]?>');
+        $('#editInputStreetAddress').val('<?php echo $delivery["Address"]?>');
+        $('#editInputPhone').val('<?php echo $delivery["Phone"]?>');
+        getEditDomainList(function(){
+            $('#DomainEdit').val('<?php echo $delivery["Domain"]?>');
+            getEditDomain2List($('#DomainEdit').val(), function(){
+                $('#Domain2Edit').val('<?php echo $delivery["Domain2"]?>');
+                getEditDomain3List($('#DomainEdit').val(), $('#Domain2Edit').val(), function(){
+                    $('#Domain3Edit').val('<?php echo $delivery["Domain3"]?>');
+                });
+            });
+        });
+        <?php else:?>
+        getEditDomainList(function(){
+            getEditDomain2List($('#DomainEdit').val(), function(){
+                getEditDomain3List($('#DomainEdit').val(), $('#Domain2Edit').val(), function(){});
+            });
+        });
+        <?php endif;?>
+    });
+
+
+    //if has warnings alert them
+    <?php if(isset($warningArr) && is_array($warningArr) && count($warningArr)>0):
+    $warningStr = "";
+    foreach($warningArr as $str){ $warningStr .= $str . '\n';}
+    ?>
+    alert('<?php echo $warningStr?>');
+    <?php endif;?>
+
+</script>

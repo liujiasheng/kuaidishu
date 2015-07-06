@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PhoneGap-Device</title>
+<link rel="stylesheet" href="../jquery.mobile-1.1.1/jquery.mobile-1.1.1.css" />
+<script src="../jquery.mobile-1.1.1/jquery.js"></script>
+<script src="../jquery.mobile-1.1.1/jquery.mobile-1.1.1.js"></script>
+<script type="text/javascript" charset="utf-8" src="../cordova-1.9.0.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+            document.addEventListener("deviceready", myDeviceReadyListener, false);      //�豸������ɻص�����
+    });
+    
+    function myDeviceReadyListener(){
+        console.log("successful");
+        $("#deviceName .ui-btn-text").text("divicename" + device.name);
+        $("#deviceCordova .ui-btn-text").text("PhoneGap" + device.cordova);
+        $("#devicePlatform .ui-btn-text").text("platform" + device.platform);
+        $("#deviceUUID .ui-btn-text").text("uuid" + device.uuid);
+        $("#deviceVersion .ui-btn-text").text("version" + device.version);
+    } 
+    
+</script>
+</head>
+<body>
+    <div data-role="page">
+        <div data-role="header">
+            <h1>PhoneGap</h1>
+        </div>
+        <div data-role="content">
+            <a href="#" data-role="button" id="deviceName"></a>
+            <a href="#" data-role="button" id="deviceCordova"></a>
+            <a href="#" data-role="button" id="devicePlatform"></a>
+            <a href="#" data-role="button" id="deviceUUID"></a>
+            <a href="#" data-role="button" id="deviceVersion"></a>
+        </div>
+        <div data-role="footer">
+            <h4>&nbsp;</h4>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var mod_menu = $(".mod-menu");//导航模块区
+        var menu = function () {
+            var menuItem = $(".menu-item li");//选择导航列表
+            menuItem.each(function () {
+                var _index = $(this).index();//获取当前选择菜单列表的索引
+                $(this).mouseenter(function () {
+                    var y = $(this).position().top + 1;//获取当前鼠标滑过的列表的顶部坐标
+                    $(".menu-cont").show();
+                    $(".menu-cont").css("top", y);//需要显示的对应索引内容
+                    $(this).addClass("mouse-bg").siblings().removeClass("mouse-bg");
+                    $(".menu-cont>div").eq(_index).show().siblings().hide();
+                });
+            });
+            /*导航菜单菜单*/
+            $(".mod-menu").mouseleave(function () {
+                $(".menu-cont").hide();
+                menuItem.removeClass("mouse-bg");
+            })
+        };//展开二级菜单
+        menu();//执行展开二级菜单函
+    });
+</script>
+<div class="top"></div>
+<!--导航 Start-->
+<div class="menu">
+    <div class="all-sort" style="font-size: large;"><a href="">全部商品分类</a></div>
+    <div class="ad">
+        <a href="">
+
+        </a>
+    </div>
+    <div class="nav">
+        <ul class="clearfix">
+            <li><a href="#" class="current">首页</a></li>
+            <li><a href="#">商家</a></li>
+            <li><a href="#">商品</a></li>
+        </ul>
+    </div>
+</div>
+<!--导航 End-->
+<div style="width: 1210px;margin-top: 1px">
+    <div class="mod-menu" style="float: left; width: 210px">
+
+    <ul class="menu-item">
+        <li><a href="http://sc.chinaz.com/">Wedding</a></li>
+        <li><a href="http://sc.chinaz.com/">Occasion Dresses</a></li>
+        <li><a href="http://sc.chinaz.com/">Women's Clothing</a></li>
+        <li><a href="http://sc.chinaz.com/">Women's Shoes</a></li>
+        <li><a href="http://sc.chinaz.com/">Accessories</a></li>
+        <li><a href="http://sc.chinaz.com/">Beauty &amp; Health</a></li>
+    </ul>
+    <!--一级菜单列表-->
+
+    <div class="menu-cont" style="display:none;top:241px;">
+
+    <div class="menu-cont-list" style="display:none;">
+        <ul>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Wedding Dresses</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Bridesmaid Dresses</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Wedding Party Dresses</a></h3>
+
+                <div class="menu-list-link">
+                    <a href="http://sc.chinaz.com/">Mother of the Brides Dresses</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Flower Girl Dresses</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Wedding Guest Dresses</a>
+                </div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Wedding Accessories</a></h3>
+
+                <div class="menu-list-link">
+                    <a href="http://sc.chinaz.com/">Fabric Swatch</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Bridal Lingerie</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Wedding Veils</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Wedding Gloves</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Wedding Shawls</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Wedding Flowers</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Wedding Petticoats</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="menu-cont-list" style="display:none;">
+        <ul>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Prom Dresses</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Military Ball Dresses</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Evening Dresses</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Cocktail Dresses</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Ball Gowns</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Homecoming Dresses</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Little Black Dresses </a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Quinceanera Dresses</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="menu-cont-list" style="display:none;">
+        <ul>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Dresses</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Clubwear</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Leggings</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Lingeries</a></h3>
+
+                <div class="menu-list-link">
+                    <a href="http://sc.chinaz.com/">Bras</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Babydolls</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Teddies</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Panties</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Hosiery</a>
+                </div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Bustiers &amp; Corsets</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Costumes</a></h3>
+
+                <div class="menu-list-link">
+                    <a href="http://sc.chinaz.com/">Sexy Costumes</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Christmas Costumes</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Halloween Costumes</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Halloween Accessories</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Zentai</a>
+                </div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Swimwear</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Activewear</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="menu-cont-list" style="display:none;">
+        <ul>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Heels</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Pumps</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Dance Shoes</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Boots</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="menu-cont-list" style="display: none;">
+        <ul>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Evening Bags</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Hats &amp; Scarves</a></h3>
+
+                <div class="menu-list-link">
+                    <a href="http://sc.chinaz.com/">Womens Hats</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Womens Scarves</a>
+                </div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Jewelry</a></h3>
+
+                <div class="menu-list-link">
+                    <a href="http://sc.chinaz.com/">Earrings</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Necklaces</a>
+                    <span class="long-string">|</span>
+                    <a href="http://sc.chinaz.com/">Rings</a>
+                </div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Watches</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="menu-cont-list" style="display:none;">
+        <ul>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Wigs &amp; Hair extensions</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Fascinators</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Makeup Tools</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Spas &amp; Massagers</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+            <li>
+                <h3><a href="http://sc.chinaz.com/">Health &amp; Fitness</a></h3>
+
+                <div class="menu-list-link"></div>
+            </li>
+        </ul>
+    </div>
+
+    </div>
+
+    </div>
+
+<div style="float:right; width:1000px;background-color: green">
+    <br/><br/><br/><br/><br/>
+</div>
+
+
+</div>

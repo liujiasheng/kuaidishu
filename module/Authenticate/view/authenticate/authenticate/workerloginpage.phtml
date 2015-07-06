@@ -1,0 +1,134 @@
+<style>
+
+    .left-content{
+
+    }
+
+
+        .login-user-container{
+            background-color: #ffffff;
+            border: 3px solid rgba(129, 129, 129, 0.59);
+            border-radius: 0;
+            margin-bottom: 20px;
+            min-height: 20px;
+            padding: 19px;
+            height: 400px;
+            margin-top: 50px;
+        }
+        .userlogin-content{
+            padding: 10px;
+        }
+        .left-content{
+            height: 394px;
+            width: 600px;
+            float: left;
+            background-image: url('/images/login-ad.png');
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .right-content{
+            float: right;
+            position: absolute;
+            right: 32px;
+            width: 30%;
+        }
+        #form-container{
+            margin-top: 20px;
+        }
+        #form-container .text{
+            border: 1px solid #cccccc;
+            float: none;
+            font-size: 14px;
+            height: 36px;
+            line-height: 36px;
+            padding: 4px 20px 4px 3px;
+            width: 282px;
+            border-radius: 0;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+            color: #555;
+            display: block;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+        }
+        #form-container .text:focus {
+            border-color: #e96d6c;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(233, 24, 27, 0.60);
+            outline: 0 none;
+        }
+
+        #form-container .account{
+            background: url("/images/login-all-bg.png") no-repeat scroll 0 -113px rgba(0, 0, 0, 0);
+            height: 25px;
+            left: 0;
+            padding: 10px 0;
+            width: 307px;
+            margin-top: 10px;
+        }
+        #form-container .password{
+            background: url("/images/login-all-bg.png") no-repeat scroll 0 -137px rgba(0, 0, 0, 0);
+            height: 25px;
+            left: 0;
+            padding: 10px 0;
+            width: 307px;
+            margin-top: 10px;
+        }
+        #form-container .btn-login{
+            background: url("/images/login-all-bg.png") no-repeat scroll 0 -164px rgba(0, 0, 0, 0);
+            height: 41px;
+            left: 0;
+            width: 282px;
+            overflow: hidden;
+            border: 0 none;
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #form-container .qqLogin{
+            background: url("/images/login-all-bg.png") no-repeat scroll 0 -217px rgba(0, 0, 0, 0);
+            height: 20px;
+            left: 0;
+            width: 59px;
+            margin: 0;
+            padding: 0;
+        }
+
+
+</style>
+<div class="login-user-container col-md-12">
+
+    <!--    //登陆页图片-->
+    <div class="userlogin-content left-content">
+    </div>
+    <!--    //登陆注册页-->
+    <div class="userlogin-content right-content">
+        <form id="loginform" role="form" onsubmit="true" method="post">
+            <div id="form-container">
+                <div class="head">
+
+                </div>
+                <div class="account"></div>
+                <div class="form-group">
+                    <input type="text" class="form-control text" id="loginUserName" name="loginUserName" placeholder="帐号">
+                </div>
+                <div class="password"></div>
+                <div class="form-group">
+                    <input type="password" class="form-control text" id="loginPWD" name="loginPWD" placeholder="密码">
+                </div>
+                <input style="display: none" id="userType" name="userType" value="<?php echo \Authenticate\AssistantClass\UserType::Worker ?>">
+                <!--            <div class="checkbox">-->
+                <!--                <label>-->
+                <!--                    <input type="checkbox">       记住登录-->
+                <!--                </label>-->
+                <!--            </div>-->
+                <button id="login" type="submit" class="btn-login"></button>
+
+                <!--            <a href="register">注册</a>-->
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+

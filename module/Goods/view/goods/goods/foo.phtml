@@ -1,0 +1,72 @@
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+<button type="button" class="btn btn-default buy-popover"
+        data-toggle="popover" data-placement="top" data-trigger="manual" data-html="true"
+        data-content='
+         <div class="btn-group-sm">
+            <button class="btn btn-default buy-sub-btn" onclick="buyIt($(this))">355ml (￥3.5)</button>
+            <button class="btn btn-default buy-sub-btn" onclick="buyIt($(this))">500ml (￥3.5)</button>
+            </div>'>
+            Buy it</button>
+
+<input type="file" accept="image/*" class="form-control" id="reg-image">
+<button class="btn btn-default" onclick="uploadImage()">upload</button>
+
+<script>
+
+    function uploadImage(){
+        var image = $('#reg-image')[0].files[0];
+        var fd = new FormData();
+        fd.append("image",image);
+        $.ajax({
+            url: '/admin/goods/goods/fooTest',
+            data: fd,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            dataType: 'json',
+            success:function(data){
+                alert("finish");
+                if(data.state){
+                    alert("success");
+                }else{
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+
+    $().ready(function(){
+
+        $('html').click(function(e) {
+            $('.buy-popover').popover('hide');
+        });
+
+        $(".buy-popover").popover({
+            html : true,
+            trigger : 'manual'
+        }).click(function(e){
+                $(this).popover('toggle');
+                e.stopPropagation();
+            });
+
+
+//            .attr("data-content",getPopoverHtml());
+
+    });
+
+    function buyIt($this){
+       // alert($this.text());
+    }
+
+</script>

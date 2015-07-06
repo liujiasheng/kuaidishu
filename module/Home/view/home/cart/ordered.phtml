@@ -1,0 +1,55 @@
+
+<div style="padding-top: 10px; padding-bottom: 20px;">
+    <div style="display:inline; font-weight: bold; font-size: x-large">
+        <span class="glyphicon glyphicon-ok-circle"></span> 提交订单成功
+    </div>
+    <img src="<?php echo $this->basePath() ?>/images/成功提交订单3.png" class="pull-right"/>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>订单号</th>
+        <th>金额</th>
+        <th>支付方式</th>
+        <th>配送方式</th>
+        <th>下单时间</th>
+        <th>期望送达时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($orders as $order): ?>
+    <tr>
+        <td><a href="/user/orderManage/detail/<?php echo $order->getID()?>"><?php echo $order->getID()?></a></td>
+        <td><?php echo $order->getTotal()?></td>
+        <td>货到付款</td>
+        <td>快递鼠配送</td>
+        <td><?php echo $order->getOrderTime();?></td>
+        <td><span style="color: #ff0000;">
+                <?php
+                $orderTime = $order->getOrderTime();
+//                $orderTimeStamp = strtotime($orderTime);
+//                $expectedStamp = intval($orderTimeStamp) + 45*60;
+//                $expectedTime = date("Y-m-d H:i:00", $expectedStamp);
+                $t = \Application\Model\CommonFunctions::getExpectedDeliveredTime($orderTime);
+                echo $t;
+                ?>
+        </span></td>
+    </tr>
+    <?php endforeach;?>
+    </tbody>
+</table>
+
+<br/><br/>
+<h4 style="color: #ff0000">温馨提示</h4>
+<div class="cart-divider">
+</div>
+
+<h5 style="font-weight: bold;">关于收单：</h5>
+<p style="padding-left: 20px;">为了保证您的服务体验，避免因商家高峰期忙碌造成的失误给您造成不便，请您收到订单时进行核对，物流人员离开后再反馈问题会影响您的使用体验。</p>
+<h5 style="font-weight: bold;">关于产品缺失：</h5>
+<p style="padding-left: 20px;">超市内随时可能存在产品不全，请您保持手机畅通，以便及时与您联系，无法联系您时我们不会擅自下单派送。</p>
+<h5 style="font-weight: bold;">关于抵价券：</h5>
+<p style="padding-left: 20px;">抵价券赠送和使用仅限于网络及手机APP下单。使用抵价券的订单不再额外赠送抵价券，赠送的抵价券在订单完成后发放。</p>
+
+<br/><br/>

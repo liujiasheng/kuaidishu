@@ -1,0 +1,116 @@
+
+<div class="col-md-2" id="container-menu">
+    <?php echo $menu; ?>
+</div>
+
+<div class="col-md-10" id="container-content">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#analysis" role="tab" data-toggle="tab">数据分析</a></li>
+        <li><a href="#report" role="tab" data-toggle="tab">报表导出</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" style="border-radius: 0 !important">
+        <div class="tab-pane fade active in" id="analysis" style="padding-top: 20px;">
+
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default span2 active" onclick="changeDataType('user')">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> 用户分析
+                </label>
+                <label class="btn btn-default span2" onclick="changeDataType('goods')">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> 商品分析
+                </label>
+                <label class="btn btn-default span2" onclick="changeDataType('order')">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> 订单分析
+                </label>
+            </div>
+
+            <br/>
+            <div class="btn-group" style="margin-top: 5px">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default span1 active" onclick="changeDateInterval(7)">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> 7天
+                    </label>
+                    <label class="btn btn-default span1" onclick="changeDateInterval(15)">
+                        <input type="radio" name="options" id="option2" autocomplete="off"> 15天
+                    </label>
+                    <label class="btn btn-default span1" onclick="changeDateInterval(30)">
+                        <input type="radio" name="options" id="option3" autocomplete="off"> 30天
+                    </label>
+                </div>
+                <div class="input-group date span2" style="margin-left: 0">
+                    <input type="text" class="form-control" placeholder="开始时间" id="analysisStartTime"/>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+                <div class="input-group date span2" style="margin-left: 0">
+                    <input type="text" class="form-control" placeholder="结束时间" id="analysisEndTime"/>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+            </div>
+
+
+
+            <div id="userAnalysisArea">
+                <blockquote style="font-size:small; margin-bottom:5px; margin-top: 20px;">趋势图</blockquote>
+                <div id="analysisChart1" style="width: 700px; margin-bottom: 30px">
+
+                </div>
+                <div id="analysisChart2" style="width: 700px; margin-bottom: 30px">
+
+                </div>
+            </div>
+
+            <div id="goodsAnalysisArea">
+                <div id="goodsAnalysisChart1" style="width: 700px; margin-bottom: 30px">
+
+                </div>
+            </div>
+
+            <div id="orderAnalysisArea">
+                <blockquote style="font-size:small; margin-bottom:5px; margin-top: 20px;">趋势图</blockquote>
+                <div id="orderAnalysisChart1" style="width: 700px; margin-bottom: 30px">
+
+                </div>
+                <div id="orderAnalysisChart2" style="width: 700px; margin-bottom: 30px">
+
+                </div>
+                <div id="orderAnalysisChart3" style="width: 700px; margin-bottom: 30px">
+
+                </div>
+                <div id="orderAnalysisChart4" style="width: 700px; margin-bottom: 30px">
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="tab-pane fade" id="report" style="padding-top: 20px;">
+            <select class="form-control span2" id="sellerSelect">
+                <option value="0">全部</option>
+                <?php foreach($sellers as $seller):?>
+                    <option value="<?php echo $seller->getID()?>"><?php echo $seller->getName()?></option>
+                <?php endforeach;?>
+            </select>
+
+            <div class="input-group date span2">
+                <input type="text" class="form-control" placeholder="开始时间" id="startTimeInput"/>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+            <div class="input-group date span2">
+                <input type="text" class="form-control" placeholder="结束时间" id="endTimeInput"/>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+
+            <button class="btn btn-default" onclick="importReport()" style="margin-left: 30px">导出报表</button>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

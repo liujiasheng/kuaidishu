@@ -1,0 +1,54 @@
+<?php if(isset($goodsArr) && is_array($goodsArr) && count($goodsArr)):?>
+<?php foreach($goodsArr as $goods): $flag = true?>
+    <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3" style="padding-left: 5px;padding-right: 5px;">
+        <div class="thumbnail home-thumbnail goodsThumbnail">
+
+            <img src="<?php echo \Application\Model\StaticInfo::getGoodsMediumAddress()?><?php echo $goods->getImage()?>"
+                 style="height: 160px; width: 100%; display: block;" />
+            <div class="goods-div">
+                <p class="goodsThumbnailName" title="<?php echo $goods->getName() ?>"><strong><?php echo $goods->getName()?></strong></p>
+                <p class="seller" style="display: block;"><?php echo $goods->getSellerName()?></p>
+                <p class="pull-right"><a class="price">
+                        <?php //echo $goods->getPrice();
+                        $prices = \Application\Model\CommonFunctions::getPricesFromStandards($goods->getGoodsStandards());
+                        $max = $prices["max"];
+                        $min = $prices["min"];
+                        echo $min;
+                        ?>
+                    </a>元/<?php echo $goods->getUnit()?></p>
+
+                <button
+
+                    data-toggle="popover" data-placement="bottom" data-trigger="manual" data-html="true"
+                    data-content='
+                    <div class="btn-group-sm">
+                    <?php $c=1; foreach($goods->getGoodsStandards() as $standard):?>
+                    <button class="btn btn-default buy-sub-btn <?php if($standard["State"]!="1") echo "disabled"?>"
+                    <?php if($standard["State"]=="1"):?>
+                        onclick="addGoodsToCart(<?php echo $standard["ID"]?>, $(this).parent().parent().parent().parent().parent(), <?php echo $standard["Price"]?>, $(this).text()); addToCartEffect($(this));"
+                        <?php endif;?>
+                        >
+                        <?php echo $standard["Standard"]."(".$standard["Price"]."/".$goods->getUnit().")"; ?>
+                    </button><?php if($c%3==0) echo "<br/>"?>
+                    <?php $c++; endforeach;?>
+                    </div>'
+
+                    <?php if(count($goods->getGoodsStandards()) > 1):?>
+
+                    <?php else:?>
+                        onclick="addGoodsToCart(<?php echo $goods->getGoodsStandards()[0]["ID"]?>, $(this).parent().parent(), <?php echo $goods->getGoodsStandards()[0]["Price"]?>, '')"
+                    <?php endif;?>
+
+                    class="btn btn-default plusone <?php echo (count($goods->getGoodsStandards()) > 1)?"buy-popover":"addToCart"?>"
+                    style="width: 80px;" <?php if($goods->State==2) echo "disabled"?>>
+
+
+                    <?php if($goods->State==1) echo "购 买";
+                    elseif($goods->State==2) echo "售 罄";
+                    else echo "下 架"?>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endforeach;?>
+<?php endif;?>

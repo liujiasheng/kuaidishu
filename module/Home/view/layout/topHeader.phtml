@@ -1,0 +1,77 @@
+
+<div class="home-search row-fluid">
+    <div class="col-sm-3 col-md-3 col-lg-3 col-xs-3">
+        <a href="/">
+            <img class="home-logo" src="http://static.kuaidishu.com/images/logo.jpg" />
+        </a>
+    </div>
+    <div class="home-mid-search col-sm-6 col-md-6 col-lg-6 col-xs-6">
+
+<!--        <div id="search_main" class="searchBar">-->
+<!--            <form method="get" id="sform" onsubmit="{return false;}">-->
+<!--                <div id="search">-->
+<!--                    <div class="jsSelect" id="Select">-->
+<!--                        <ul id="search-select">-->
+<!--                            <li class="s">商品</li>-->
+<!--                            <li id="soso_s">商品</li>-->
+<!---->
+<!--                            <li id="youdao_s">商家</li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    <input  name="w" type="text" value=""  autocomplete="off" id="inp" onsubmit="btnSearch()">-->
+<!--                    <div id="searchimg"></div>-->
+<!--                </div>-->
+<!--                <input type="submit" value="搜素"  id="sure" onclick="btnSearch()"/>-->
+<!--            </form>-->
+<!--        </div>-->
+        <div>
+            <a href="#" id="homeSearchGoods"><div class="homeSearchGoodsOnClick"></div></a>
+            <a href="#" id="homeSearchSeller"><div class="homeSearchSellerNotClick"></div></a>
+            <form onsubmit="btnSearch();return false;">
+                <input class="homeSearchInput" type="text" autocomplete="off"/>
+                <div style="float: left;">
+                    <a href="#" onclick="btnSearch()">
+                        <img src="http://static.kuaidishu.com/images/searchsmallbtn.png" width="30px" height="30px"/>
+                    </a>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+    <div class="home-userInfo col-sm-3 col-md-3 col-lg-3 col-xs-3" style="padding-right: 0">
+        <?php if($isLogin && $role==\Authenticate\AssistantClass\UserType::User):?>
+        <a href="/user/userinfo">
+        <?php else:?>
+        <a href="/userlogin">
+        <?php endif;?>
+            <img src="http://static.kuaidishu.com/images/mykds.jpg" style="height: 30px; float: right"/>
+        </a>
+    </div>
+</div>
+
+<script>
+function btnSearch(){
+//    var key = $('#inp').val();
+//    var type = ($('#search-select').children('.s').text())=="商品"?"g":"s";
+    var key = $('input.homeSearchInput').val();
+    var type = ($('#homeSearchSeller').children().first().attr("class") == "homeSearchSellerOnClick")?"s":"g";
+    var url = '<?php echo $this->basePath()?>/search?t=' + type;
+    if(type=="g") url += '&g=' + key;
+    else url += '&s=' + key;
+    location.href = url;
+}
+
+    $(function(){
+        $('#homeSearchSeller').click(function(){
+            $(this).children().removeClass().addClass('homeSearchSellerOnClick');
+            $('#homeSearchGoods').children().removeClass().addClass('homeSearchGoodsNotClick');
+        });
+        $('#homeSearchGoods').click(function(){
+            $(this).children().removeClass().addClass('homeSearchGoodsOnClick');
+            $('#homeSearchSeller').children().removeClass().addClass('homeSearchSellerNotClick');
+        });
+
+    });
+</script>

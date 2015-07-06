@@ -1,0 +1,352 @@
+
+
+<div class="col-md-2" id="container-menu">
+    <?php echo $menu; ?>
+</div>
+
+
+<div class="col-md-10" id="container-content">
+    <div class="row-fluid">
+        <button class="btn btn-default span2" data-toggle="modal" data-target="#addSeller" onclick="flushFormValues()">添加商家</button>
+
+        <select class="form-control span2" id="state-select" onchange="changeState()">
+            <option value="0">全部</option>
+            <option value="1">正常</option>
+            <option value="8">解约</option>
+            <option value="9">禁用</option>
+        </select>
+
+        <div class="input-group span3">
+            <input type="text" class="form-control span9" id="searchText">
+             <span class="input-group-btn">
+             <button class="btn btn-default" type="button" onclick="searchTextChange()">查找</button>
+             </span>
+        </div><!-- /input-group -->
+        <div class="span1 pull-right" id="loading" style="display: none;">
+            <img src="<?php echo $this->basePath()?>/images/loading.gif" style="width: 34px;"/>
+        </div>
+        <button class="btn btn-default span2" onclick="test()" style="display: block">TEST</button>
+<!--        <input class="span3" type="file" accept="image/*" id="file" onchange="fileChanged(this)"/>-->
+    </div>
+    <!--    <input type="search" class="form-control"/>-->
+    <div style="padding-top: 5px;">
+        <table class="table table-bordered table-hover">
+            <thead style="background-color:#428bca;color: white;">
+            <tr>
+                <td style="width: 30px"><input id="check-all" type="checkbox" onclick="checkAllBoxes()"/></td>
+                <td>商家帐号</td>
+                <td>商家名称</td>
+                <td>商家电话</td>
+                <td>负责人电话</td>
+                <td>状态</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody style="background-color: white" id="sellerTable">
+            <?php foreach ($sellerTable as $seller): ?>
+                <tr id="tr-<?php echo $seller->getID()?>">
+                    <td><input id="check-<?php echo $seller->getID();?>" type="checkbox"/></td>
+                    <td><?php echo $seller->getUsername(); ?></td>
+                    <td><?php echo $seller->getName(); ?></td>
+                    <td><?php echo $seller->getPhone(); ?></td>
+                    <td><?php echo $seller->getContactPhone(); ?></td>
+                    <td>
+                        <?php
+                        $state = $seller->getState();
+                        switch($state){
+                            case 1:echo "正常";break;
+                            case 8:echo "解约";break;
+                            case 9:echo "禁用";break;
+                            default: echo "未知";break;
+                        }
+                        ?>
+                    </td>
+                    <td>
+                        <a href="#" onclick="viewSeller(<?php echo $seller->getID(); ?>)">查看</a>
+                        <a href="#" onclick="editSellerOpen(<?php echo $seller->getID(); ?>)">编辑</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <!--        分页-->
+        <ul class="pager">
+            <li><a href="#" onclick="prevPage()">上一页</a></li>
+            <li class="disabled"><span>第<span id="curPage">1</span>页/共<span id="allPages"><?php echo ceil($count/10)?></span>页</span></li>
+            <li><a href="#" onclick="nextPage()">下一页</a></li>
+        </ul>
+
+    </div>
+</div>
+
+<!--    添加商家-->
+<div class="modal fade" id="addSeller" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">添加商家</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="reg-username" class="col-sm-3 control-label">用户名</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="reg-username" placeholder="6-16个字母、汉字、数字、下划线">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password" class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="reg-password" placeholder="6-16个字符">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-repassword" class="col-sm-3 control-label">重复密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="reg-repassword" placeholder="请重复输入密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-name" class="col-sm-3 control-label">商家名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="reg-name" placeholder="请输入商家名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-comment" class="col-sm-3 control-label">商家简介</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="reg-comment" placeholder="请输入商家简介">
+                        </div>
+                    </div>
+                    <div class="form-group" id="reg-showImg" style="display: none;">
+                        <label for="reg-logo" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-8">
+                            <img id="reg-img" src="#" style="width: 200px; max-height: 150px"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-logo" class="col-sm-3 control-label">商家图片</label>
+                        <div class="col-sm-8">
+                            <input type="file" accept="image/*" class="form-control" id="reg-logo"
+                                   onchange="logoChanged(this,$('#reg-img'))">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-address" class="col-sm-3 control-label">商家地址</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="reg-address" placeholder="请输入商家地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="reg-email" placeholder="请输入Email地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-phone" class="col-sm-3 control-label">商家电话</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="reg-phone" placeholder="请输入商家电话">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-contactPhone" class="col-sm-3 control-label">联系人电话</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="reg-contactPhone" placeholder="请输入联系人电话">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;"><div id="reg-message" style="color: red;"></div></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="addSeller()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    编辑商家-->
+<div class="modal fade" id="editSeller" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">编辑商家</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input type="text" class="form-control" id="edit-id" style="display: none"/>
+                    <div class="form-group">
+                        <label for="edit-username" class="col-sm-3 control-label">用户名</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="edit-username" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-password" class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="edit-password" placeholder="**********">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-repassword" class="col-sm-3 control-label">重复密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="edit-repassword" placeholder="**********">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-name" class="col-sm-3 control-label">商家名称</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="edit-name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-comment" class="col-sm-3 control-label">商家简介</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="edit-comment">
+                        </div>
+                    </div>
+                    <div class="form-group" id="edit-showImg">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-8">
+                            <img id="edit-img" style="width: 200px; max-height: 150px;"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-logo" class="col-sm-3 control-label">商家图片</label>
+                        <div class="col-sm-8">
+                            <input type="file" accept="image/*" class="form-control" id="edit-logo"
+                                onchange="logoChanged(this, $('#edit-img'))">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-address" class="col-sm-3 control-label">商家地址</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="edit-address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-email" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="edit-email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-phone" class="col-sm-3 control-label">商家电话</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="edit-phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-contactPhone" class="col-sm-3 control-label">联系人电话</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="edit-contactPhone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-state" class="col-sm-3 control-label">状态</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="edit-state">
+                                <option value="1">正常</option>
+                                <option value="8">解约</option>
+                                <option value="9">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;"><div id="edit-message" style="color: red;"></div></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="editSeller()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    查看商家-->
+<div class="modal fade" id="viewSeller" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">查看商家</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <img id="view-logo" style="width: 200px; max-height: 150px;" class="center-block"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-username" class="col-sm-4 control-label">商家帐号</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-username"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-name" class="col-sm-4 control-label">商家名称</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-name"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-comment" class="col-sm-4 control-label">商家简介</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-comment"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-address" class="col-sm-4 control-label">商家地址</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-address"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-phone" class="col-sm-4 control-label">商家电话</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-phone"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-contactPhone" class="col-sm-4 control-label">联系人电话</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-contactPhone"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-email" class="col-sm-4 control-label">Email</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-email"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-loginTime" class="col-sm-4 control-label">最近登录时间</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-loginTime"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-loginIP" class="col-sm-4 control-label">最近登录IP</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-loginIP"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-state" class="col-sm-4 control-label">状态</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-state"></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('快递鼠')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+    <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+    <!-- Le styles -->
+    <?php
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+            ->prependStylesheet($this->basePath() . '/css/topMenu.css')
+        ->prependStylesheet($this->basePath() . '/css/home.css')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+    ?>
+
+    <!-- Scripts -->
+    <?php
+    echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+        ->prependFile($this->basePath() .'/js/jquery.validate.min.js')
+        ->prependFile($this->basePath() .'/js/paramsCheck.js')
+        ->prependFile($this->basePath() .'/js/md5.js')
+        ->prependFile($this->basePath() . '/js/jquery.min.js');
+    ?>
+
+</head>
+<body>
+<?php if ($this->topNavbar) echo $this->topNavbar; ?>
+<div class="container">
+    <?php echo $this->content; ?>
+</div>
+<!-- /container -->
+<hr>
+<footer class="text-center">
+    <p>
+        <a href="###">公司简介</a> |
+        <a href="###">加入我们</a> |
+        <a href="###">常见问题</a> |
+        <a href="###">联系客服</a> |
+        <a href="###">网站地图</a>
+    </p>
+
+    <p>Copyright &copy;2014-2015 快递鼠 版权所有 | 粤ICP备14052553号</p>
+</footer>
+<?php echo $this->inlineScript() ?>
+</body>
+</html>

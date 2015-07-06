@@ -1,0 +1,30 @@
+
+<!--    <a href="#" class="thumbnail">-->
+<!--        <img data-src="holder.js/100%x180" alt="..." src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNzEiIGhlaWdodD0iMTgwIj48cmVjdCB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE4MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9Ijg1LjUiIHk9IjkwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MTcxeDE4MDwvdGV4dD48L3N2Zz4=">-->
+<!--    </a>-->
+    <div class="list-group userinfo-group">
+        <?php if($this->menu) foreach($this->menu as $key=>$item): ?>
+
+            <a href="<?php echo $key;?>" id="<?php echo $key ?>" class="list-group-item userinfo-group-item <?php echo $key==$this->selected?'active':'';?>">
+                <?php echo $item; ?>
+            </a>
+        <?php endforeach;?>
+    </div>
+<style>
+    .userinfo-group-item.active, .userinfo-group-item.active:hover, .userinfo-group-item.active:focus {
+        background-color: #e43a3d !important;
+        border-color: #e43a3d !important;
+        color: #fff;
+        z-index: 2;
+    }
+    .userinfo-group-item:first-child {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+    }
+    .list-group-item:last-child {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        margin-bottom: 0;
+    }
+</style>
+

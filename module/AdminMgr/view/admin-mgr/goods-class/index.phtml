@@ -1,0 +1,223 @@
+<div class="col-md-2" id="container-menu">
+    <?php echo $menu; ?>
+</div>
+
+<div class="col-md-10" id="container-content">
+    <div class="panel-group" id="accordion-super">
+
+        <?php if ($classTable):
+            foreach ($classTable as $superKey => $superClassGroup):
+                $mainClassTable = $superClassGroup["MainClasses"];
+                $superClassName = $superClassGroup["Name"];?>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-super"
+                               href="#collapse-super-<?php echo $superKey; ?>">
+                                <?php echo $superClassName; ?>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse-super-<?php echo $superKey; ?>" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordion-<?php echo $superKey ?>">
+                                <?php foreach ($mainClassTable as $key => $mainClassGroup):
+                                    $classGroup = $mainClassGroup["Classes"];
+                                    $mainClassName = $mainClassGroup["Name"];
+                                    $mainClassID = $key;
+                                    ?>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse"
+                                                   id="collapse-main-<?php echo $mainClassID?>"
+                                                   data-parent="#accordion-<?php echo $superKey ?>"
+                                                   href="#collapse-<?php echo $mainClassID; ?>">
+                                                    <?php echo $mainClassName; ?>
+                                                </a>
+                                                <a class="pull-right" href="###"
+                                                   onclick="editMainClassOpen($(this), <?php echo $superKey?>, <?php echo $mainClassID ?>)">编辑</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse-<?php echo $mainClassID; ?>" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <?php foreach ($classGroup as $class): ?>
+                                                    <button class="btn btn-default goods-class"
+                                                            onclick="editClassOpen($(this), <?php echo $mainClassID?>, <?php echo $class['ClassID']?>)"
+                                                            id="class-<?php echo $class['ClassID']; ?>">
+                                                        <?php echo $class['ClassName']; ?>
+                                                    </button>
+                                                <?php endforeach; ?>
+                                                <button class="btn btn-default goods-class add-goods-class"
+                                                        id="addClass-<?php echo $mainClassID; ?>"
+                                                        onclick="addClassOpen(<?php echo $mainClassID; ?>)">
+                                                    <span class="glyphicon glyphicon-plus"></span> 添加子分类
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                                <div class="panel panel-default" id="addMainClassPanel-<?php echo $superKey?>">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a href="###"
+                                                onclick="addMainClassOpen(<?php echo $superKey?>)">
+                                                <span class="glyphicon glyphicon-plus"></span> 添加主分类
+                                            </a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+
+    </div>
+</div>
+
+<!--    添加主分类-->
+<div class="modal fade" id="addMainClass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">添加主分类</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input id="add-superClassID" value="" style="display: none;"/>
+                    <div class="form-group">
+                        <label for="add-name" class="col-sm-3 control-label">主分类名</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="add-name" placeholder="1-12个字母、汉字、数字">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;">
+                    <div id="add-message" style="color: red;"></div>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="addMainClass()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    编辑主分类-->
+<div class="modal fade" id="editMainClass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">编辑主分类</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input id="edit-superClassID" value="" style="display: none;"/>
+                    <input id="edit-mainClassID" value="" style="display: none;"/>
+                    <div class="form-group">
+                        <label for="edit-name" class="col-sm-3 control-label">主分类名</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="edit-name" placeholder="1-12个字母、汉字、数字">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;">
+                    <div id="edit-message" style="color: red;"></div>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="editMainClass()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    添加子分类-->
+<div class="modal fade" id="addClass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">添加子分类</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input id="addClass-mainClassID" value="" style="display: none;"/>
+
+                    <div class="form-group">
+                        <label for="addClass-name" class="col-sm-3 control-label">子分类名</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="addClass-name" placeholder="1-12个字母、汉字、数字">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;">
+                    <div id="addClass-message" style="color: red;"></div>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="addClass()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    编辑子分类-->
+<div class="modal fade" id="editClass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">编辑子分类</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input id="editClass-mainClassID" value="" style="display: none;"/>
+                    <input id="editClass-classID" value="" style="display: none;"/>
+
+                    <div class="form-group">
+                        <label for="editClass-name" class="col-sm-3 control-label">子分类名</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="editClass-name" placeholder="1-12个字母、汉字、数字">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;">
+                    <div id="editClass-message" style="color: red;"></div>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="editClass()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .goods-class {
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+
+    .add-goods-class {
+        margin-left: 5px;
+    }
+</style>

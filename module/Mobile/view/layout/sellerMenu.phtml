@@ -1,0 +1,23 @@
+<div class="block <?php if($activeClass=="") echo "active"?>" onclick="location.href='?mc='">
+    全部
+</div>
+
+<?php foreach($mainClasses as $class):?>
+<div class="block <?php if($activeClass==$class["ID"]) echo "active"?>" onclick="location.href='?mc=<?php echo $class["ID"]?>'">
+    <?php echo $class["Name"]?>
+</div>
+<?php endforeach;?>
+
+
+
+<script>
+
+    searchData = {
+        sellerId: <?php echo $sellerId?>,
+        key : "",
+        mc : <?php echo $activeClass?$activeClass:"0"?>,
+        page : 1,
+        count : 20
+    };
+
+</script>

@@ -1,0 +1,712 @@
+<div class="mod-menu" style="float: left; width: 210px;">
+
+<ul class="menu-item" <?php if(isset($this->isHome) && !$this->isHome) echo 'style="display: none; position: absolute;"'?>>
+    <li><a href="/search?t=g&sc=1">饮料烟酒</a></li>
+    <li><a href="/search?t=g&sc=3">休闲零食</a></li>
+    <li><a href="/search?t=g&sc=4">文体办公</a></li>
+<!--    <li><a href="/search?t=g&sc=5">快餐熟食</a></li>-->
+    <li><a href="/search?t=g&sc=3&mc=75">方便速食</a></li>
+<!--    <li><a href="/search?t=g&sc=6">现调饮料</a></li>-->
+    <li><a href="/search?t=g&sc=10">美妆护肤</a></li>
+    <li><a href="/search?t=g&sc=8">家具百货</a></li>
+</ul>
+<!--一级菜单列表-->
+
+<div class="menu-cont" style="display:none;top:241px;">
+
+<div class="menu-cont-list" style="display:none;">
+    <ul>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=1&mc=13">饮料</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=1&mc=13&cs=24">水</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=13&cs=25">果蔬汁饮料</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=13&cs=26">碳酸饮料</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=13&cs=27">咖啡饮料</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=13&cs=28">功能饮料</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=13&cs=273">乳饮料</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=13&cs=30">茶饮料</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=13&cs=60">其他饮料</a>
+                </div>
+
+            </div>
+        </li>
+<!--        <li>-->
+<!--            <div class="menu-list-link row">-->
+<!--                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">-->
+<!--                    <a href="/search?t=g&sc=6">现调饮料</a>-->
+<!--                </div>-->
+<!--                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">-->
+<!--                    <a href="/search?t=g&sc=6&mc=49">奶茶</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=50">茶</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=51">果汁</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=52">咖啡</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=53">冰沙</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=54">优多</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=64">特调</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=80">奶昔</a>-->
+<!--                </div>-->
+<!---->
+<!--            </div>-->
+<!--        </li>-->
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=1&mc=55">冲调饮品</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=1&mc=55&cs=190">速溶咖啡</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=55&cs=183">速溶奶茶</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=55&cs=191">茶包</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=1&mc=17">牛奶</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=1&mc=17&cs=31">蒙牛</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=17&cs=32">伊利</a>
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=1&mc=17&cs=33">三元</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=1&mc=17&cs=34">子母</a>-->
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=17&cs=35">燕塘</a>
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=1&mc=17&cs=36">光明</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=1&mc=17&cs=37">其他牛奶</a>-->
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=1&mc=18">啤酒</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=1&mc=18&cs=38">百威</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=18&cs=39">哈尔滨</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=18&cs=40">嘉士伯</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=18&cs=41">蓝带</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=18&cs=42">青岛</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=18&cs=43">雪花</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=18&cs=44">燕京</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=18&cs=182">珠江</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=18&cs=45">其他啤酒</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=1&mc=19">香烟</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=1&mc=19&cs=46">白沙</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=47">芙蓉王</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=48">红塔山</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=49">黄鹤楼</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=50">黄山</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=51">娇子</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=52">双喜</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=53">南京</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=54">云烟</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=55">长白山</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=56">中华</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=57">中南海</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=1&mc=19&cs=58">进口香烟</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="menu-cont-list" style="display:none;">
+    <ul>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=3&mc=24">零食</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=3&mc=24&cs=110">海苔</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=24&cs=111">鱼类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=24&cs=112">果冻布丁</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=24&cs=113">蛋卷</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=24&cs=114">豆腐豆干</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=24&cs=115">其他零食</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=3&mc=25">膨化食品</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=3&mc=25&cs=116">薯条薯片</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=25&cs=117">锅巴</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=25&cs=118">其他</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=3&mc=26">坚果炒货</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=3&mc=26&cs=119">杏仁</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=26&cs=120">开心果</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=26&cs=121">瓜子</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=26&cs=122">腰果</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=26&cs=123">核桃</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=26&cs=124">花生</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=26&cs=125">榛子</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=26&cs=126">其他坚果</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=3&mc=27">肉干肉松</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=3&mc=27&cs=127">卤制品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=27&cs=128">猪肉类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=27&cs=129">牛肉类</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=3&mc=28">蜜饯果脯</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=3&mc=28&cs=130">陈皮类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=28&cs=131">地瓜类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=28&cs=132">橄榄类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=28&cs=133">李子类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=28&cs=134">梅子类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=28&cs=135">山楂类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=28&cs=136">脱水蔬菜</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=28&cs=137">枣类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=28&cs=138">葡萄类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=28&cs=139">组合类</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=3&mc=37">糖果/巧克力</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=3&mc=37&cs=140">巧克力</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=37&cs=141">口香糖</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=37&cs=142">硬糖</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=37&cs=143">软糖</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=37&cs=144">夹心糖</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=3&mc=38">饼干蛋糕</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=3&mc=38&cs=145">威化</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=38&cs=146">饼干</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=38&cs=147">传统糕饼</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=38&cs=148">曲奇</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=38&cs=149">面包</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=38&cs=150">蛋糕/派</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=3&mc=39">进口食品</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=3&mc=39&cs=151">饼干</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=39&cs=152">冲调品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=39&cs=153">糖果/巧克力</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=39&cs=154">饮料</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=39&cs=155">其他</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="menu-cont-list" style="display:none;">
+    <ul>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=4&mc=33">文件管理</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=4&mc=33&cs=68">文件夹/文件袋</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=33&cs=69">档案袋/盒</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=33&cs=70">资料册</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=33&cs=71">板夹/报告夹</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=33&cs=72">拉链袋</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=33&cs=73">夹子</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=33&cs=74">图钉/回形针/打头针</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=33&cs=75">笔筒/书立</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=33&cs=76">其他</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=4&mc=34">文具</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=4&mc=34&cs=77">笔类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=78">尺类/圆规</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=79">修正液/橡皮</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=80">胶水/固体胶/胶带</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=81">铅笔盒/笔袋</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=82">记事本类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=83">计算器</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=84">削笔器</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=85">文具套装</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=86">剪刀美工刀</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=87">订书机</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=88">白板及配件</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=89">便签类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=90">财务用品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=187">商务用品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=34&cs=91">其他文具</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=4&mc=35">体育用品</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=4&mc=35&cs=92">游泳类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=35&cs=93">篮球类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=35&cs=94">足球类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=35&cs=95">羽毛球类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=35&cs=96">排球类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=35&cs=97">乒乓球类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=35&cs=98">网球类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=35&cs=99">保护用品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=35&cs=100">运动配件</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=4&mc=36">美术用品</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=4&mc=36&cs=101">美术颜料</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=36&cs=102">画纸画簿</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=36&cs=103">素描用品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=36&cs=104">油画用品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=36&cs=105">绘画用具类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=36&cs=106">美术画笔</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=36&cs=107">国画用品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=36&cs=108">设计用品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=36&cs=109">雕刻雕塑</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=36&cs=185">喷漆类</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=4&mc=56">活动用品</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=4&mc=56&cs=184">活动用品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=56&cs=186">棋牌类</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=56&cs=188">生活用品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=4&mc=57">乐器配件</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="menu-cont-list" style="display:none;">
+    <ul>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=3&mc=75">方便熟食</a>
+                </div>
+<!--                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">-->
+<!--                    <a href="/search?t=g&sc=5&mc=41">牛杂类</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=5&mc=42">牛腩类</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=5&mc=43">肉丸类</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=5&mc=44">粉面类</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=5&mc=45">综合类</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=5&mc=47">素卤类</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=5&mc=48">荤卤类</a>-->
+<!--                </div>-->
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=3&mc=75&cs=262">方便面</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=75&cs=269">火腿肠</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=3&mc=75&cs=284">方便零食</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!--<div class="menu-cont-list" style="display: none;">-->
+<!--    <ul>-->
+<!--        <li>-->
+<!--            <div class="menu-list-link row">-->
+<!--                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">-->
+<!--                    <a href="/search?t=g&sc=6&mc=49">奶茶</a>-->
+<!--                </div>-->
+<!--                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">-->
+<!--                    <a href="/search?t=g&sc=6&mc=49&cs=170">原味奶茶</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=49&cs=171">找奶茶</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=49&cs=210">奶茶系列</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <div class="menu-list-link row">-->
+<!--                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">-->
+<!--                    <a href="/search?t=g&sc=6&mc=50">茶</a>-->
+<!--                </div>-->
+<!--                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">-->
+<!--                    <a href="/search?t=g&sc=6&mc=50&cs=172">口感茶</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=50&cs=173">调味茶</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=50&cs=174">花果茶</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=50&cs=175">养生茶</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=50&cs=211">纯茶</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <div class="menu-list-link row">-->
+<!--                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">-->
+<!--                    <a href="/search?t=g&sc=6&mc=51">果汁</a>-->
+<!--                </div>-->
+<!--                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">-->
+<!--                    <a href="/search?t=g&sc=6&mc=51&cs=176">鲜榨果汁</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <div class="menu-list-link row">-->
+<!--                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">-->
+<!--                    <a href="/search?t=g&sc=6&mc=52">咖啡</a>-->
+<!--                </div>-->
+<!--                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">-->
+<!--                    <a href="/search?t=g&sc=6&mc=52&cs=177">咖啡</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=52&cs=178">拿铁</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=52&cs=212">冰咖啡</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <div class="menu-list-link row">-->
+<!--                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">-->
+<!--                    <a href="/search?t=g&sc=6&mc=53">冰沙</a>-->
+<!--                </div>-->
+<!--                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">-->
+<!--                    <a href="/search?t=g&sc=6&mc=53&cs=179">冰沙</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <div class="menu-list-link row">-->
+<!--                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">-->
+<!--                    <a href="/search?t=g&sc=6&mc=54">优多</a>-->
+<!--                </div>-->
+<!--                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">-->
+<!--                    <a href="/search?t=g&sc=6&mc=54&cs=180">优多</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=6&mc=54&cs=181">奶优</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <div class="menu-list-link row">-->
+<!--                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">-->
+<!--                    <a href="/search?t=g&sc=6&mc=64">特调</a>-->
+<!--                </div>-->
+<!--                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">-->
+<!--                    <a href="/search?t=g&sc=6&mc=64&cs=213">特调系列</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<div class="menu-cont-list" style="display:none;">
+    <ul>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=10">美妆护肤</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=10&mc=84">面膜</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=10&mc=85">洁面产品</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=10&mc=86">面霜/乳液/精华</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="menu-cont-list" style="display:none;">
+    <ul>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=8&mc=59">生活用品</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+<!--                    <a href="/search?t=g&sc=8&mc=59&cs=203">锁头</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=8&mc=59&cs=204">排插</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=8&mc=59&cs=205">盆桶</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=8&mc=59&cs=206">扫把拖把</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=8&mc=59&cs=207">衣架衣叉</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=8&mc=59&cs=208">收纳盒</a>-->
+<!--                    <span class="long-string">|</span>-->
+<!--                    <a href="/search?t=g&sc=8&mc=59&cs=209">镜子</a>-->
+                    <a href="/search?t=g&sc=8&mc=59&cs=249">卷纸</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=59&cs=248">抽纸</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=59&cs=247">纸手帕</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=59&cs=250">卫生巾/护垫</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=8&mc=63">卫浴用品</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=8&mc=63&cs=246">毛巾</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=63&cs=244">牙膏</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=63&cs=221">洗发水</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=63&cs=223">沐浴乳</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=8&mc=60">电脑周边</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=8&mc=60&cs=201">U盘</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=60&cs=202">网线</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=8&mc=61">小电器</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=8&mc=61&cs=193">风扇</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=61&cs=194">台灯</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=61&cs=195">电吹风</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=61&cs=196">电水壶</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="menu-list-link row">
+                <div class="menu-list-link-left col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                    <a href="/search?t=g&sc=8&mc=62">床上用品</a>
+                </div>
+                <div class="menu-list-link-right col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                    <a href="/search?t=g&sc=8&mc=62&cs=197">枕头</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=62&cs=198">床垫</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=62&cs=199">蚊帐</a>
+                    <span class="long-string">|</span>
+                    <a href="/search?t=g&sc=8&mc=62&cs=200">被子</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+</div>
+
+</div>

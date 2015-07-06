@@ -1,0 +1,304 @@
+
+
+<div class="col-md-2" id="container-menu">
+    <?php echo $menu; ?>
+</div>
+
+<div class="col-md-10" id="container-content">
+
+    <div class="row-fluid">
+        <div class="dropdown">
+            <button class="btn btn-default form-control span2" type="button"
+                    data-toggle="dropdown">
+                操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" style="margin-top: 35px;">
+                <li><a href="#" data-toggle="modal" data-target="#confirmOrder" onclick="readyConfirm(0)">确认</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#rejectOrder" onclick="readyReject(0)">退回</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#finishOrder" onclick="readyFinish(0)">完成</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#resendOrder">重发信息</a></li>
+            </ul>
+        </div>
+
+        <select class="form-control span2" id="state-select" onchange="changeState()">
+            <option value="0">全部状态</option>
+            <option value="1">待确认</option>
+            <option value="2">已确认</option>
+            <option value="3">已退回</option>
+            <option value="9">已完成</option>
+        </select>
+        <select class="form-control span2" id="domain-select">
+            <option value="0">全部学校</option>
+            <?php foreach($domainList as $domain):?>
+            <option><?php echo $domain?></option>
+            <?php endforeach;?>
+        </select>
+        <select class="form-control span2" id="domain2-select">
+            <option value="0">全部位置</option>
+        </select>
+        <button class="btn btn-default span1" onclick="changeTable()"><span class="glyphicon glyphicon-refresh"></span></button>
+        <div class="span1" style="padding-top: 5px;">
+            <input type="checkbox" id="highlight" onclick="tableHighlight()" checked/> 高亮
+        </div>
+        <div class="span1" style="padding-top: 5px;">
+            <input type="checkbox" id="refresh" onclick="changeRefreshing()" checked/> 刷新
+        </div>
+        <div class="span1 pull-right" id="loading" style="display: none;">
+            <img src="<?php echo $this->basePath()?>/images/loading.gif" style="width: 34px;"/>
+        </div>
+
+    </div>
+    <div style="padding-top: 5px;">
+
+        <!--    gaide-->
+        <table class="table table-bordered table-hover">
+            <thead style="background-color:#428bca;color: white;">
+            <tr>
+                <td style="width: 30px"><input id="check-all" type="checkbox" onclick="checkAllBoxes()"/></td>
+                <td>订单号</td>
+                <td>下单时间</td>
+                <td>商家</td>
+                <td>收货人</td>
+                <td>收货地址</td>
+                <td>联系电话</td>
+                <td>状态</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody style="background-color: white" id="orderTable">
+            <?php foreach ($orderTable as $order): ?>
+
+                <tr id="order-<?php echo $order->getID() ?>" class="tr-order">
+                    <td><input id="check-<?php echo $order->getID();?>" type="checkbox"/></td>
+                    <td>
+                        <a href="###" onclick="viewOrder(<?php echo $order->getID() ?>)"><?php echo $order->getID() ?></a>
+                    </td>
+                    <td><?php echo $order->getOrderTime() ?></td>
+                    <td><?php $seller = reset($orderDetailTable[$order->getID()]);echo $seller[0]["SellerName"];?></td>
+                    <td><?php echo $order->getName() ?></td>
+                    <td><?php echo $order->getDomain() . " " . $order->getDomain2() . " " . $order->getDomain3() . " " . $order->getAddress() ?></td>
+                    <td>
+                        <a class="phonePopover" href="###" data-container="body" data-toggle="popover" data-placement="left" data-content="123123">
+                            <?php echo $order->getPhone() ?>
+                        </a>
+                    </td>
+                    <td class="state"><?php
+                        switch ($order->getState()) {
+                            case "1":
+                                echo "待确认";
+                                break;
+                            case "2":
+                                echo "已确认";
+                                break;
+                            case "3":
+                                echo "已退回";
+                                break;
+                            case "9":
+                                echo "已完成";
+                                break;
+                            default:
+                                echo "未知状态";
+                                break;
+                        }
+                        ?>
+                    </td>
+                    <td class="operator">
+                        <?php $st = $order->getState();
+                        if($st=="1"):?>
+                            <a href="#" data-toggle="modal" data-target="#confirmOrder"
+                                onclick="readyConfirm(<?php echo $order->getID()?>)">确认</a>
+                        <?php endif;
+                        if($st=="2"):?>
+                            <a href="#" data-toggle="modal" data-target="#finishOrder"
+                                onclick="readyFinish(<?php echo $order->getID()?>)">完成</a>
+                        <?php endif;if($st=="1" || $st=="2"):?>
+                            <a href="#" data-toggle="modal" data-target="#rejectOrder"
+                               onclick="readyReject(<?php echo $order->getID()?>)">退回</a>
+                        <?php endif;?>
+                        <a href="###" class="tr-detail">详细</a>
+                    </td>
+                </tr>
+                <tr id="orderInfo-<?php echo $order->getID()?>" style="display: none; height: 70px;" class="tr-orderInfo">
+                    <td colspan="9">
+                        订单号：<?php echo $order->getID()?>
+                        下单用户：<?php echo $order->getUserName()?>
+                        <br/>
+                        订单内容：
+                        <?php $detailGroup = $orderDetailTable[$order->getID()];?>
+                        <?php foreach($detailGroup as $sellerGroup):?>
+                            [<?php echo reset($sellerGroup)["SellerName"];?>]
+                            <?php foreach($sellerGroup as $detail):?>
+                            <?php echo $detail["Name"]. "*" . $detail["Count"].";"?>
+                            <?php endforeach;?>
+                        <?php endforeach;?>
+
+                        <br/>
+                        备注：<?php echo $order->getRemark()?$order->getRemark():"空"?> 总额：<?php echo $order->getTotal()?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!--        分页-->
+    <ul class="pager">
+        <li><a href="###" onclick="prevPage()">上一页</a></li>
+        <li class="disabled"><span>第<span id="curPage">1</span>页/共<span
+                    id="allPages"><?php echo ceil($count / 10) ?></span>页</span></li>
+        <li><a href="###" onclick="nextPage()">下一页</a></li>
+    </ul>
+</div>
+
+<!--    确认订单-->
+<div class="modal fade" id="confirmOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">确认订单</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input id="cfm-id" style="display: none;" />
+                    <div class="form-group">
+                        <label for="cfm-worker" class="col-sm-3 control-label">员工</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="cfm-worker">
+                                <option value="0">请选择</option>
+                                <?php foreach($workers as $worker):?>
+                                <option value="<?php echo $worker->getID()?>"><?php echo $worker->getName()?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;"><div id="cfm-message" style="color: red;"></div></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="confirmOrder()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    退回订单-->
+<div class="modal fade" id="rejectOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">退回订单</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input id="rej-id" style="display: none;" />
+                    <div class="form-group">
+                        <label for="reg-username" class="col-sm-3 control-label">退回原因</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="3" id="rej-text"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;"><div id="rej-message" style="color: red;"></div></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="rejectOrder()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--    确认订单-->
+<div class="modal fade" id="finishOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">完成订单</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input id="finish-id" style="display: none;" />
+                    <div class="form-group" style="text-align: center">
+                        订单已完成？
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;"><div id="finish-message" style="color: red;"></div></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="finishOrder()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    重发订单-->
+<div class="modal fade" id="resendOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">重发订单信息给员工</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+<!--                    <input id="resend-id" style="display: none;" />-->
+                    <div class="form-group">
+                        <label for="resend-worker" class="col-sm-3 control-label">员工</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="resend-worker">
+                                <option value="0">请选择</option>
+                                <?php foreach($workers as $worker):?>
+                                    <option value="<?php echo $worker->getID()?>"><?php echo $worker->getName()?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;"><div id="resend-message" style="color: red;"></div></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="resendOrder()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--查看订单-->
+<div class="modal fade" id="viewOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">查看订单</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <!--                    <input id="resend-id" style="display: none;" />-->
+                    <div class="form-group">
+                        <label for="resend-worker" class="col-sm-3 control-label">信息预览</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="view-orderMsg" rows="10" onclick="$(this).select()"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;"><div id="view-message" style="color: red;"></div></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

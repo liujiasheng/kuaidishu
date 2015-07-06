@@ -1,0 +1,116 @@
+<?php $this->headScript()->prependFile($this->basePath() . '/js/userRegister.js'); ?>
+<div class="registerContent" >
+
+
+
+
+    <form id="registerform" role="form">
+        <h2 style="text-align: center;font-size: 28px">注册</h2>
+        <div class="form-group">
+            <label for="regUserName">帐号</label>
+            <input type="text" class="form-control" id="regUserName"name="regUserName" placeholder="帐号">
+        </div>
+        <div class="form-group">
+            <label for="regEmail">邮箱</label>
+            <input type="email" class="form-control" id="regEmail" name="regEmail" placeholder="邮箱">
+        </div>
+        <div class="form-group">
+            <label for="regPWD1">密码</label>
+            <input type="password" class="form-control" id="regPWD1" name="regPWD1" placeholder="密码">
+        </div>
+        <div class="form-group">
+            <label for="regPWD2">确认密码</label>
+            <input type="password" class="form-control" id="regPWD2" name="regPWD2" placeholder="确认密码">
+        </div>
+
+<!--        <div class="form-group">-->
+<!--            <label for="regCaptcha">验证码</label>-->
+<!--            <input type="text" class="form-control" id="regCaptcha" name="regCaptcha" placeholder="验证码">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <img id="captchaImg"  width="100" height="30" src="" style="border: 1px solid #818181">-->
+<!--            <a class="btn btn-link" id="captchaButton">看不清,换一张</a>-->
+<!--        </div>-->
+        <div class="form-group">
+            <label for="regCaptcha">验证码</label>
+            <input type="text" class="form-control" style="width: 100px;display: inline-block" id="regCaptcha" name="regCaptcha"  placeholder="验证码">
+            <img id="captchaImg" class="captcha" style="display: inline-block;border: 1px solid lightgray"  width="100" height="36" src="">
+
+        </div>
+
+
+
+
+        <button class="btn-register" type="submit"></button>
+    </form>
+</div>
+
+<style>
+    .registerContent{
+        font-size: 12px;
+        height: 900px;
+        position: relative;
+        width: 980px;
+    }
+    #registerform{
+        background-color: #fff;
+        border: 1px solid #d7d7d7;
+        box-shadow: 0 0 10px #d7d7d7;
+        color: #818181;
+        margin: 0 auto;
+        padding: 30px;
+        width: 400px;
+    }
+    #registerform .form-control{
+        border: 1px solid #cccccc;
+        border-radius: 0;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        color: #555;
+        display: block;
+        float: none;
+        font-size: 14px;
+        height: 36px;
+        line-height: 36px;
+        padding: 4px 20px 4px 3px;
+        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    }
+
+    #registerform .form-control:focus{
+        border-color: #e96d6c;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(233, 24, 27, 0.60);
+        outline: 0 none;
+    }
+    #registerform >div> label{
+        font-weight: lighter;
+        display: block;
+    }
+    .errBox{
+        color: #ff3c3c;
+        font-weight: lighter;
+        margin: 0 auto;
+        margin-left: 20px;
+    }
+    #registerform .captcha{
+        width: 100px;
+        display: inline-block;
+    }
+    #registerform .btn-register{
+        background: url("/images/login-all-bg.png") no-repeat scroll 0 -380px rgba(0, 0, 0, 0);
+        height: 41px;
+        left: 0;
+        width: 338px;
+        overflow: hidden;
+        border: 0 none;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    #captchaImg{
+        cursor: pointer;
+        margin-left: 5px;
+        padding: 0;
+        position: absolute;
+    }
+</style>

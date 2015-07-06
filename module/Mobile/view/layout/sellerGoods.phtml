@@ -1,0 +1,64 @@
+
+<?php foreach($goodsArr as $goods):?>
+    <div class="block">
+        <div class="image">
+            <img src="http://static.kuaidishu.com/goodsimg/tiny/<?php echo $goods->getImage()?>"/>
+        </div>
+        <div class="content">
+            <p class="name"><?php echo $goods->getName()?></p>
+            <p class="price"><span class="number">
+                    <?php //echo $goods->getPrice();
+                    $prices = \Application\Model\CommonFunctions::getPricesFromStandards($goods->getGoodsStandards());
+                    $max = $prices["max"];
+                    $min = $prices["min"];
+                    echo $min;
+                    ?>
+            </span> 元/<?php echo $goods->getUnit()?></p>
+        </div>
+        <div class="comment">
+<!--            <span class="glyphicon glyphicon-plus"></span>-->
+            <button data-toggle="popover" data-placement="left" data-trigger="manual" data-html="true" data-content='
+                    <div class="btn-group-sm">
+                    <?php $c=1; foreach($goods->getGoodsStandards() as $standard):?>
+                    <button class="btn btn-default buy-sub-btn <?php if($standard["State"]!="1") echo "disabled";else echo "plusone"?>"
+                    <?php if($standard["State"]=="1"):?>
+                        onclick="addGoodsToCart_mobile(<?php echo $standard["ID"]?>, <?php echo $standard["Price"]?>); subBtnPlusOneEffect($(this));"
+                        <?php endif;?>
+                        >
+                        <?php echo $standard["Standard"]."(".$standard["Price"]."/".$goods->getUnit().")"; ?>
+                    </button><?php if($c%2==0) echo "<br/>"?>
+                    <?php $c++; endforeach;?>
+                    </div>
+                    '
+
+                <?php if(count($goods->getGoodsStandards()) > 1):?>
+
+                <?php else:?>
+                    onclick="addGoodsToCart_mobile(<?php echo $goods->getGoodsStandards()[0]["ID"]?>, <?php echo $goods->getGoodsStandards()[0]["Price"]?>)"
+                <?php endif;?>
+
+                    class="btn btn-default <?php echo (count($goods->getGoodsStandards()) > 1)?"buy-popover":"plusone"?>"
+                    style="" <?php if($goods->State==2) echo "disabled"?> >
+
+                <?php if($goods->State==1) echo "购 买";
+                elseif($goods->State==2) echo "售 罄";
+                else echo "下 架"?>
+            </button>
+        </div>
+    </div>
+<?php endforeach;?>
+
+<?php if(isset($hasMore)):?>
+    <button class="btn btn-default form-control pushMoreBtn" id="pushMoreBtn<?php echo $mainClassId?("-".$mainClassId):"-0"?>"
+            data-loading-text="加载中..." onclick="pushMoreGoods_mobile(<?php echo $mainClassId?$mainClassId:"0"?>)">加载更多 <span class="glyphicon glyphicon-refresh"></span></button>
+<?php endif;?>
+
+<script>
+
+    $().ready(function(){
+//        $(".buy-popover").popover();
+        initBuyPopover();
+        bindPlusOneEffect();
+    });
+
+</script>

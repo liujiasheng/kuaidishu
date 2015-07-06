@@ -1,0 +1,118 @@
+
+<div class="row-fluid clearfix">
+<div class="col-sm-2 col-lg-2 col-md-2 col-xs-2 home-search-left">
+    <div class="panel-group">
+        <?php if(isset($classArr) && is_array($classArr) && count($classArr)>0 ):
+            foreach($classArr as $classGroup):
+                $classID = $classGroup["ID"];
+                $className = $classGroup["Name"];?>
+                <div class="panel panel-default home-search-class-panel">
+                    <div class="panel-heading home-search-class-heading">
+                        <h4 class="panel-title">
+                            <a class="classExpandLabel" style="text-decoration: none" data-toggle="collapse"
+                               data-parent="#accordion" href="#collapse-sc-<?php echo $classID?>"><span class="glyphicon glyphicon-plus"></span></a>
+                            <a href="/search?t=g&sc=<?php echo $classID?>">
+                                <?php echo $className?>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse-sc-<?php echo $classID?>" class="panel-collapse collapse in">
+                        <div class="panel-body home-search-class-body">
+                            <?php foreach($classGroup["Classes"] as $class):?>
+                                <div><a href="/search?t=g&sc=<?php echo $classID?>&mc=<?php echo $class["ID"]?>">
+                                        <?php echo $class["Name"]?>
+                                    </a></div>
+                            <?php endforeach;?>
+                        </div>
+                    </div>
+                </div>
+
+            <?php endforeach; endif;?>
+
+
+    </div>
+</div>
+<div class="col-sm-10 col-lg-10 col-md-10 col-xs-10">
+    <?php foreach($goodsGroups as $goodsGroup):
+        if( count($goodsGroup["goods"]) < 1) continue;
+        ?>
+
+        <div class="kuaidishuPanelTitle">
+            <?php echo $goodsGroup["name"]?>
+            <div class="pull-right">
+                <a href="/search?t=g&sc=<?php echo $goodsGroup["id"]?>">更多...</a>
+            </div>
+        </div>
+        <div class="kuaidishuPanel row-fluid clearfix">
+            <?php foreach($goodsGroup["goods"] as $goods):?>
+                <div class="" style="padding-left: 5px;padding-right: 5px; float:left; width:25%">
+                    <div class="thumbnail home-thumbnail goodsThumbnail">
+
+                        <img src="<?php echo \Application\Model\StaticInfo::getGoodsMediumAddress()?><?php echo $goods->getImage()?>"
+                             style="height: 160px; width: 100%; display: block;" />
+                        <div class="goods-div">
+                            <p class="goodsThumbnailName" title="<?php echo $goods->getName() ?>"><strong><?php echo $goods->getName()?></strong></p>
+                            <p class="seller" style="display: block;"><?php echo $goods->getSellerName()?></p>
+                            <p class="pull-right"><a class="price">
+                                    <?php //echo $goods->getPrice();
+                                    $prices = \Application\Model\CommonFunctions::getPricesFromStandards($goods->getGoodsStandards());
+                                    $max = $prices["max"];
+                                    $min = $prices["min"];
+                                    echo $min;
+                                    ?>
+                                </a>元/<?php echo $goods->getUnit()?></p>
+
+                            <button
+
+                                data-toggle="popover" data-placement="bottom" data-trigger="focus" data-html="true"
+                                data-content='
+                    <div class="btn-group-sm">
+                    <?php foreach($goods->getGoodsStandards() as $standard):?>
+                    <button class="btn btn-default buy-sub-btn <?php if($standard["State"]!="1") echo "disabled"?>"
+                        onclick="addGoodsToCart(<?php echo $standard["ID"]?>, $(this).parent().parent().parent().parent().parent(), <?php echo $standard["Price"]?>, $(this).text()); addToCartEffect($(this));">
+                        <?php echo $standard["Standard"]."(".$standard["Price"]."/".$goods->getUnit().")"; ?>
+                    </button>
+                    <?php endforeach;?>
+                    </div>'
+
+                                <?php if(count($goods->getGoodsStandards()) > 1):?>
+
+                                <?php else:?>
+                                    onclick="addGoodsToCart(<?php echo $goods->getGoodsStandards()[0]["ID"]?>, $(this).parent().parent(), <?php echo $goods->getGoodsStandards()[0]["Price"]?>, '')"
+                                <?php endif;?>
+
+                                class="btn btn-default plusone <?php echo (count($goods->getGoodsStandards()) > 1)?"buy-popover":"addToCart"?>"
+                                style="width: 80px;" <?php if($goods->State==2) echo "disabled"?>>
+
+
+                                <?php if($goods->State==1) echo "购 买";
+                                elseif($goods->State==2) echo "售 罄";
+                                else echo "下 架"?>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach;?>
+        </div>
+    <?php endforeach;?>
+</div>
+
+</div>
+
+<script>
+    $().ready(function(){
+        initBuyPopover();
+
+
+        var plusHtml = '<span class="glyphicon glyphicon-plus"></span>';
+        var minusHtml = '<span class="glyphicon glyphicon-minus"></span>';
+        $('.classExpandLabel').click(function(){
+            var text = $(this).html().trim();
+            if(text == plusHtml){
+                $(this).children('span').first().removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            }else if(text == minusHtml){
+                $(this).children('span').first().removeClass('glyphicon-minus').addClass('glyphicon-plus');
+            }
+        });
+    });
+</script>

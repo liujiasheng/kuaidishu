@@ -1,0 +1,43 @@
+<div style="display:inline; font-weight: bold; font-size: x-large">
+    <img src="http://static.kuaidishu.com/images/tinylogo.jpg"/>
+    <br/>
+    <span class="glyphicon glyphicon-ok-circle"></span> 提交订单成功
+</div>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>订单号</th>
+        <th>金额</th>
+<!--        <th>支付方式</th>-->
+<!--        <th>配送方式</th>-->
+<!--        <th>下单时间</th>-->
+        <th>期望送达时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($orders as $order): ?>
+        <tr>
+            <td><a href="/user/orderManage/detail/<?php echo $order->getID()?>"><?php echo $order->getID()?></a></td>
+            <td><?php echo $order->getTotal()?></td>
+<!--            <td>货到付款</td>-->
+<!--            <td>快递鼠配送</td>-->
+<!--            <td>--><?php //echo $order->getOrderTime();?><!--</td>-->
+            <td><span style="color: #ff0000;">
+                <?php
+                $orderTime = $order->getOrderTime();
+                //                $orderTimeStamp = strtotime($orderTime);
+                //                $expectedStamp = intval($orderTimeStamp) + 45*60;
+                //                $expectedTime = date("Y-m-d H:i:00", $expectedStamp);
+                $t = \Application\Model\CommonFunctions::getExpectedDeliveredTime($orderTime);
+                echo $t;
+                ?>
+        </span></td>
+        </tr>
+    <?php endforeach;?>
+    </tbody>
+</table>
+
+<br/>
+<button class="btn btn-default" onclick="location.href='/mobile'"> 返回首页 </button>

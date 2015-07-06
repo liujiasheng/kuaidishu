@@ -1,0 +1,2 @@
+<?php die('forbidden'); ?>
+{"appid":"appid","appkey":"appkey","callback":"http://www.kuaidishu.com/login/qq","scope":"get_user_info,get_info","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}

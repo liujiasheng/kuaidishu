@@ -1,0 +1,327 @@
+
+<div id="bindBox" class="col-md-12">
+    <div>
+        <div  id="newUser">
+            <div style="font-size: 28px">只差一步，即可完成登录设置</div>
+            <div style="padding: 5px;font-size: 20px">
+                <p>快速完成快递鼠账号创建</p>
+                <p>完成账号创建后，即可直接登录快递鼠哦！</p>
+            </div>
+            <form id="newUserForm" method="post" action="authenticate/Authenticate/bindNewUser">
+                <div class="form-group">
+                    <label for="regEmail">邮箱</label>
+                    <input type="email" class="form-control" id="regEmail" name="regEmail" placeholder="邮箱">
+                </div>
+                <div class="form-group">
+                    <label for="regPWD1">密码</label>
+                    <input type="password" class="form-control" id="regPWD1" name="regPWD1" placeholder="密码">
+                </div>
+                <div class="form-group">
+                    <label for="regPWD2">确认密码</label>
+                    <input type="password" class="form-control" id="regPWD2" name="regPWD2" placeholder="确认密码">
+                </div>
+                <div>
+                    <a href="###">《快递鼠商场协议》</a>
+                    <button id="register" type="submit" class="btn-register"></button>
+                </div>
+            </form>
+        </div>
+        <div  id="oldUser">
+            <div class="bindNew">
+                <div style="font-size: 20px">有快递鼠账号？直接绑定</div>
+            </div>
+            <form id="oldUserForm"  method="post" action="authenticate/Authenticate/bindUser">
+                <div class="form-group">
+                    <label for="userName">帐号</label>
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="帐号">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">密码</label>
+                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="密码">
+                </div>
+                <div class="form-group">
+                    <label for="bindCaptcha">验证码</label>
+                    <input type="text" class="form-control" style="width: 100px;display: inline-block" id="bindCaptcha" name="bindCaptcha"  placeholder="验证码">
+                    <img id="captchaImg" class="captcha" style="display: inline-block;border: 1px solid lightgray"  width="100" height="36" src="">
+                </div>
+                <div>
+                    <button id="bindBtn" type="submit" class="btn-bind"></button>
+                </div>
+                <div style="font-weight: lighter;color: #818181;font-size: 12px;margin-top: 10px;">
+                    绑定后，您的QQ和快递鼠账户都可以登录快递鼠
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    #bindBox{
+        margin: 0 auto;
+        float: none;
+        padding: 10px 0;
+        position: relative;
+        box-shadow: 0 0 10px #d7d7d7;
+        background-color: #ffffff;
+        border: 1px solid #d7d7d7;
+    }
+    #newUser{
+        display: inline-block;
+        width: 60%;
+        padding: 20px;
+    }
+    #newUser >form{
+        padding: 20px;
+        width: 300px;
+    }
+    #newUser >form .form-control{
+        border: 1px solid #cccccc;
+        float: none;
+        font-size: 14px;
+        height: 36px;
+        line-height: 36px;
+        padding: 4px 20px 4px 3px;
+        width: 282px;
+        border-radius: 0;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        color: #555;
+        display: block;
+        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    }
+    #newUser >form .form-control:focus{
+        border-color: #e96d6c;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(233, 24, 27, 0.60);
+        outline: 0 none;
+    }
+    #newUser >form >div>label{
+        font-weight: lighter;
+        color: #818181;
+    }
+    #oldUser{
+        display: inline-block;
+        width: 33%;
+        padding: 20px;
+        border: 1px solid lightgray;
+    }
+
+    #oldUser >form .form-control{
+        border: 1px solid #cccccc;
+        float: none;
+        font-size: 14px;
+        height: 36px;
+        line-height: 36px;
+        padding: 4px 20px 4px 3px;
+        border-radius: 0;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        color: #555;
+        display: block;
+        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    }
+    #oldUser >form .captcha{
+        width: 100px;
+        display: inline-block;
+    }
+    #oldUser >form .form-control:focus{
+        border-color: #e96d6c;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(233, 24, 27, 0.60);
+        outline: 0 none;
+    }
+    #oldUser >form >div>label{
+        display: block;
+        font-weight: lighter;
+        color: #818181;
+    }
+
+    #register{
+        background: url("/images/login-all-bg.png") no-repeat scroll 0 -280px rgba(0, 0, 0, 0);
+        height: 41px;
+        left: 0;
+        width: 282px;
+        overflow: hidden;
+        border: 0 none;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+    #bindBtn{
+        background: url("/images/login-all-bg.png") no-repeat scroll 0 -334px rgba(0, 0, 0, 0);
+        height: 33px;
+        left: 0;
+        width: 100px;
+        overflow: hidden;
+        border: 0 none;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+    #captchaImg{
+        cursor: pointer;
+        margin-left: 5px;
+        padding: 0;
+        position: absolute;
+    }
+
+    .errBox{
+        color: #ff3c3c;
+        font-weight: lighter;
+        margin: 0 auto;
+        margin-left: 20px;
+    }
+</style>
+
+<script>
+
+//    $("#oldUserForm").submit(function() {
+//        if(!$(this).valid()){
+//            return false;
+//        }
+//        var url = "bindUser"; // the script where you handle the form input.
+//        var email = $('#regEmail').val();
+//        var pwd1 = $('#regPWD1').val();
+//        var pwd2 = $('#regPWD2').val();
+//        var cap = $('#regCaptcha').val();
+//        //TODO check the arguments
+//        $.post(url,
+//            {regUserName:un,
+//                regEmail:email,
+//                regPWD1:hex_md5(pwd1),
+//                regCaptcha:cap
+//            }
+//            ,function(data){
+//                if(data.state){
+//                    //TODO to enable redirect
+//                    alert(data.message.message)
+//                    setTimeout(function(){
+//                        window.location.href = "/userlogin";
+//                    },2000);
+//                }else{
+//                    alert(data.message.message+" "+data.code)
+//                }
+//            }, 'json');
+//        return false;
+//    });
+    //自定义验证方法
+    jQuery.validator.addMethod("isValidatePwd", function(value, element) {
+        return this.optional(element) || checkUserPwd(value);
+    }, "密码只能是英文、数字和符号组成");
+    jQuery.validator.addMethod("isValidateUsername", function(value, element) {
+        return this.optional(element) || checkUsername(value);
+    }, "用户名只能是中文、英文、数字和_组成");
+
+
+    $("#newUserForm").validate({
+        rules:{
+            regEmail:{
+                required:true,
+                email:true
+            },
+            regPWD1:{
+                required:true,
+                minlength:6,
+                maxlength:16,
+                isValidatePwd:true
+            },
+            regPWD2:{
+                required:true,
+                equalTo:"#regPWD1"
+            }
+
+        },
+        messages:{
+            regEmail:{
+                required:"请输入Email地址",
+                email:"请输入正确的Email地址"
+            },
+            regPWD1:{
+                required:"请输入密码",
+                minlength:"密码不得少于6位",
+                maxlength:"密码不得长于16位",
+                isValidatePwd:"密码只能是字母、数字、符号和中文组成"
+            },
+            regPWD2:{
+                required:"请输入确认密码",
+                equalTo:"请输入正确的确认密码"
+            }
+        },
+        errorPlacement: function(error, element) {
+            error.addClass('errBox');
+            error.appendTo( element.parent().find('label') );
+        },
+        submitHandler:function(form){
+            $('#regPWD1').val(hex_md5($('#regPWD1').val()))
+            $('#regPWD2').val(hex_md5($('#regPWD2').val()))
+            form.submit();
+        }
+    });
+
+$("#oldUserForm").validate({
+    rules:{
+        userName: {
+            required: true,
+            minlength: 6,
+            maxlength: 32,
+            isValidateUsername:true
+        },
+        pwd:{
+            required:true,
+            minlength:6,
+            maxlength:16,
+            isValidatePwd:true
+        },
+        bindCaptcha:{
+            required:true,
+            minlength:4,
+            maxlength:4
+        }
+
+    },
+    messages:{
+        userName:{
+            required: "请输入用户名",
+            minlength: "用户名不得少于6位",
+            maxlength: "用户名不得长于32位",
+            isValidateUsername:"用户名只能是字母、数字、_和中文组成"
+        },
+        pwd:{
+            required:"请输入密码",
+            minlength:"密码不得少于6位",
+            maxlength:"密码不得长于16位",
+            isValidatePwd:"密码只能是字母、数字、符号和中文组成"
+        },
+        bindCaptcha:{
+            required:"请输入验证码",
+            minlength:"验证为4位",
+            maxlength:"验证为4位"
+        }
+    },
+    errorElement:"span",
+    errorPlacement: function(error, element) {
+        error.addClass('errBox');
+        error.appendTo( element.parent().find('label') );
+    },
+    submitHandler:function(form){
+        $('#pwd').val(hex_md5($('#pwd').val()))
+        form.submit();
+    }
+});
+    $().ready(function(){
+        $("#oldUserForm")[0].reset();
+        $("#newUserForm")[0].reset();
+        $('#captchaImg').on('click',getCaptcha);
+        function getCaptcha(){
+            $.get("authenticate/Authenticate/getCaptcha",
+                function(data){
+                    if(data.state){
+                        $('#captchaImg').attr('src',data.captcha) ;
+                    }else{
+                        //TODO Add otification
+                    }
+                },'json');
+        }
+        getCaptcha();
+    })
+</script>
+
+

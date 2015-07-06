@@ -1,0 +1,264 @@
+
+
+<div class="col-md-2" id="container-menu">
+    <?php echo $menu; ?>
+</div>
+
+<div class="col-md-10" id="container-content">
+    <div class="row-fluid">
+        <button class="btn btn-default span2" data-toggle="modal" data-target="#addUser" onclick="flushFormValues()">添加用户</button>
+
+        <select class="form-control span2" id="state-select" onchange="changeState()">
+            <option value="0">全部</option>
+            <option value="1">正常</option>
+            <option value="2">未激活</option>
+            <option value="9">禁用</option>
+        </select>
+
+        <div class="input-group span3">
+             <input type="text" class="form-control span9" id="searchText">
+             <span class="input-group-btn">
+             <button class="btn btn-default" type="button" onclick="searchTextChange()">查找</button>
+             </span>
+        </div><!-- /input-group -->
+        <div class="span1 pull-right" id="loading" style="display: none;">
+            <img src="<?php echo $this->basePath()?>/images/loading.gif" style="width: 34px;"/>
+        </div>
+        <button class="btn btn-default span2" onclick="getSelectedIdArray()" style="display: block">TEST</button>
+    </div>
+<!--    <input type="search" class="form-control"/>-->
+    <div style="padding-top: 5px;">
+        <table class="table table-bordered table-hover">
+            <thead style="background-color:#428bca;color: white;">
+            <tr>
+                <td style="width: 30px"><input id="check-all" type="checkbox" onclick="checkAllBoxes()"/></td>
+                <td>用户名</td>
+                <td>昵称</td>
+                <td>邮箱</td>
+<!--                <td>联系电话</td>-->
+                <td>注册时间</td>
+                <td>状态</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody style="background-color: white" id="userTable">
+            <?php foreach ($userTable as $user): ?>
+            <tr id="tr-<?php echo $user->getId()?>">
+                <td><input id="check-<?php echo $user->getId();?>" type="checkbox"/></td>
+                <td><?php echo $user->getUsername(); ?></td>
+                <td><?php echo $user->getNickname(); ?></td>
+                <td><?php echo $user->getEmail(); ?></td>
+<!--                <td>--><?php //echo $user->getPhone(); ?><!--</td>-->
+                <td><?php echo $user->getRegisterTime(); ?></td>
+                <td>
+                    <?php
+                        $state = $user->getState();
+                        switch($state){
+                            case 1:echo "正常";break;
+                            case 2:echo "未激活";break;
+                            case 9: echo "禁用";break;
+                            default: echo "未知";break;
+                        }
+                    ?>
+                </td>
+                <td>
+                    <a href="#" onclick="viewUser(<?php echo $user->getId(); ?>)">查看</a>
+                    <a href="#" onclick="editUserOpen(<?php echo $user->getId(); ?>)">编辑</a>
+                </td>
+            </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+<!--        分页-->
+        <ul class="pager">
+            <li><a href="#" onclick="prevPage()">上一页</a></li>
+            <li class="disabled"><span>第<span id="curPage">1</span>页/共<span id="allPages"><?php echo ceil($count/10)?></span>页</span></li>
+            <li><a href="#" onclick="nextPage()">下一页</a></li>
+        </ul>
+
+    </div>
+</div>
+
+
+<!--    添加用户-->
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">添加用户</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="reg-username" class="col-sm-3 control-label">用户名</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="reg-username" placeholder="6-16个字母、汉字、数字、下划线">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password" class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="reg-password" placeholder="6-16个字符">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-repassword" class="col-sm-3 control-label">重复密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="reg-repassword" placeholder="请重复输入密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="reg-email" placeholder="请输入Email地址">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;"><div id="reg-message" style="color: red;"></div></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="addUser()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    查看用户-->
+<div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">查看用户</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="view-username" class="col-sm-4 control-label">用户名</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-username">username</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-username" class="col-sm-4 control-label">昵称</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-nickname">nickname</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-username" class="col-sm-4 control-label">Email</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-email">email@example.com</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-username" class="col-sm-4 control-label">联系电话</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-phone">16523232356</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-username" class="col-sm-4 control-label">注册时间</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-registerTime">2013/04/12 10:22:54</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-username" class="col-sm-4 control-label">最近登录时间</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-loginTime">2013/04/12 10:22:54</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-username" class="col-sm-4 control-label">最近登录IP</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-loginIP">202.192.15.12</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-username" class="col-sm-4 control-label">状态</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static" id="view-state">正常</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    修改用户-->
+<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">编辑用户</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input type="text" class="form-control" id="edit-id" style="display: none"/>
+                    <div class="form-group">
+                        <label for="edit-username" class="col-sm-3 control-label">用户名</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="edit-username" readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-password" class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="edit-password" placeholder="************">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-repassword" class="col-sm-3 control-label">重复密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="edit-repassword" placeholder="************">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-nickname" class="col-sm-3 control-label">昵称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="edit-nickname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-email" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="edit-email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-phone" class="col-sm-3 control-label">联系电话</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="edit-phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-state" class="col-sm-3 control-label">状态</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="edit-state">
+                                <option value="1">正常</option>
+                                <option value="2">未激活</option>
+                                <option value="9">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;margin-left: 80px; width: 200px;"><div id="edit-message" style="color: red;"></div></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="editUser()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

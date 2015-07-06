@@ -1,0 +1,33 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="zh">
+<head>
+    <?php
+    echo $this->headTitle();
+    echo $this->headMeta() ;
+    //Le styles
+    echo $this->headLink();
+    //Scripts
+    echo $this->headScript()
+    ?>
+</head>
+<body style="min-height: 768px">
+<?php if ($this->topNavbar) echo $this->topNavbar; ?>
+<div class="container" style="min-height: 768px;margin: 0 auto;padding: 0;width: 1170px">
+    <?php
+    if ($this->ad) echo $this->ad;
+    if ($this->topheader) echo $this->topheader;
+    if($this->topnavigation) echo $this->topnavigation;
+    if ($this->localNav) echo $this->localNav;
+
+    ?>
+    <?php echo $this->content; ?>
+
+</div>
+<!-- /container -->
+<hr>
+<?php if($this->footer) echo $this->footer; ?>
+
+<?php echo $this->inlineScript() ?>
+</body>
+</html>

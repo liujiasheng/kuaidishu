@@ -1,0 +1,14 @@
+User-Agent: *
+Allow: /home/seller/
+Allow: /allseller
+Allow: /allgoods
+Disallow: /register
+Disallow: /userlogin
+Disallow: /home/order
+Disallow: /home/ordered
+Disallow: /home/cart
+Disallow: /user/
+Disallow: /admin/
+Disallow: /seller/
+Disallow: /worker/
+

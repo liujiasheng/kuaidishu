@@ -1,0 +1,401 @@
+<!--<div class="col-md-2">-->
+<!--    --><?php //echo $menu; ?>
+<!--</div>-->
+
+<div style="width: 1140px;margin: 0 auto;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <form id="post_form">
+            <input id="post_id" hidden="hidden" value="<?php if($this->post) echo $this->post["ID"];?>">
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <label for="post_title" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">标题</label>
+
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <input type="text" class="form-control" style="height: 30px;width: 500px" name="post_title"
+                    value="<?php
+                    if($this->post)
+                    echo $this->post["Title"];
+                    ?>"
+                           id="post_title"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <label for="post_author" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">作者</label>
+
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <input type="text" class="form-control" style="height: 30px;width: 500px" name="post_author"
+                           value="<?php
+                           if($this->post)
+                               echo $this->post["Author"];
+                           ?>"
+                           id="post_author"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <label for="post_type" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">分类</label>
+
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <!--                    <input type="text" class="form-control" name="post-type" id="post-type"/>-->
+<!--                    <select name="post_type" id="post_type" style="width: 500px">-->
+<!--                        <option>选择分类</option>-->
+<!--                        --><?php //foreach ($this->typeList as $type): ?>
+<!--                            <option value="--><?php //echo $type['Type']; ?><!--">--><?php //echo $type['Type']; ?><!--</option>-->
+<!--                        --><?php //endforeach; ?>
+<!--                        <option value="-1">其他</option>-->
+<!--                    </select>-->
+                    <input type="text" class="form-control" style="height: 30px;width: 500px" name="post_type" value="<?php
+                    if($this->post)
+                        echo $this->post["Type"];?>"
+                           id="post_type"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <label for="post_source" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">来源</label>
+
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+<!--                    <select id="post_source" name="post_source" style="width: 500px">-->
+<!--                        <option>选择来源</option>-->
+<!--                        --><?php //foreach ($this->sourceList as $source): ?>
+<!--                            <option>--><?php //echo $source['Source']; ?><!--</option>-->
+<!--                        --><?php //endforeach; ?>
+<!--                        <option>其他</option>-->
+<!--                    </select>-->
+                    <input type="text" class="form-control" style="height: 30px;width: 500px" name="post_source"
+                           value="<?php
+                           if($this->post)
+                               echo $this->post["Source"];?>"
+                           id="post_source"/>
+                </div>
+            </div>
+            <!--            <div id="alerts"></div>-->
+            <!--            <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">-->
+            <!--                <div class="btn-group">-->
+            <!--                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b-->
+            <!--                            class="caret"></b></a>-->
+            <!--                    <ul class="dropdown-menu">-->
+            <!--                    </ul>-->
+            <!--                </div>-->
+            <!--                <div class="btn-group">-->
+            <!--                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i-->
+            <!--                            class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>-->
+            <!--                    <ul class="dropdown-menu">-->
+            <!--                        <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>-->
+            <!--                        <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>-->
+            <!--                        <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>-->
+            <!--                    </ul>-->
+            <!--                </div>-->
+            <!--                <div class="btn-group">-->
+            <!--                    <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>-->
+            <!--                    <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>-->
+            <!--                    <a class="btn" data-edit="strikethrough" title="Strikethrough"><i-->
+            <!--                            class="icon-strikethrough"></i></a>-->
+            <!--                    <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i-->
+            <!--                            class="icon-underline"></i></a>-->
+            <!--                </div>-->
+            <!--                <div class="btn-group">-->
+            <!--                    <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>-->
+            <!--                    <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>-->
+            <!--                    <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i-->
+            <!--                            class="icon-indent-left"></i></a>-->
+            <!--                    <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>-->
+            <!--                </div>-->
+            <!--                <div class="btn-group">-->
+            <!--                    <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i-->
+            <!--                            class="icon-align-left"></i></a>-->
+            <!--                    <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i-->
+            <!--                            class="icon-align-center"></i></a>-->
+            <!--                    <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i-->
+            <!--                            class="icon-align-right"></i></a>-->
+            <!--                    <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i-->
+            <!--                            class="icon-align-justify"></i></a>-->
+            <!--                </div>-->
+            <!--                <div class="btn-group">-->
+            <!--                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i-->
+            <!--                            class="icon-link"></i></a>-->
+            <!---->
+            <!--                    <div class="dropdown-menu input-append">-->
+            <!--                        <input class="span2" placeholder="URL" type="text" data-edit="createLink"/>-->
+            <!--                        <button class="btn" type="button">Add</button>-->
+            <!--                    </div>-->
+            <!--                    <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="icon-cut"></i></a>-->
+            <!---->
+            <!--                </div>-->
+            <!---->
+            <!--                <div class="btn-group">-->
+            <!--                    <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i-->
+            <!--                            class="icon-picture"></i></a>-->
+            <!--                    <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage"/>-->
+            <!--                </div>-->
+            <!--                <div class="btn-group">-->
+            <!--                    <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>-->
+            <!--                    <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>-->
+            <!--                </div>-->
+            <!--                <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">-->
+            <!--            </div>-->
+            <!--            <div id="editor" style="margin-bottom: 20px;margin-top: 20px">-->
+            <!---->
+            <!--            </div>-->
+            <div id="editable" contenteditable="true">
+                <?php
+                if($this->post)
+                echo $this->post["Content"];?>
+            </div>
+
+            <br style="clear: both">
+
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <label for="post_summary" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">简介</label>
+
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <!--                                        <input type="t" class="form-control" name="post-type" id="post-type"/>-->
+                    <textarea class="form-control" name="post_summary" id="post_summary" onkeyup="checkLength(this,45);"
+                              style="padding-bottom: 0px; margin-bottom: 0px; border-bottom-width: 1px;width: 512px;"></textarea>
+                    <small>文字最大长度: 45. 还剩: <span id="chLeft">45</span>.</small>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <label for="post_remark" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">备注</label>
+
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <input type="text" class="form-control" style="height: 30px;width: 512px;" name="post_remark" value="<?php if($this->post)echo $this->post['Remark'];?>"
+                           id="post_remark"/>
+
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-default" type="submit">保存</button>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+<style>
+    #editor {
+        overflow: scroll;
+        max-height: 300px
+    }
+
+    /* this CSS is not part of the widget, it is here just as an example of the demo page styling.... Don't copy this one, roll your own. One
+ * of the key things about the widget is that it allows you to do your own styling!
+ */
+
+    #editor {
+        max-height: 250px;
+        height: 250px;
+        background-color: white;
+        border-collapse: separate;
+        border: 1px solid rgb(204, 204, 204);
+        padding: 4px;
+        box-sizing: content-box;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+        box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-top-left-radius: 3px;
+        overflow: scroll;
+        outline: none;
+    }
+
+    #voiceBtn {
+        width: 20px;
+        color: transparent;
+        background-color: transparent;
+        transform: scale(2.0, 2.0);
+        -webkit-transform: scale(2.0, 2.0);
+        -moz-transform: scale(2.0, 2.0);
+        border: transparent;
+        cursor: pointer;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+
+    div[data-role="editor-toolbar"] {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .dropdown-menu a {
+        cursor: pointer;
+    }
+
+    /**
+     *	CKEditor editables are automatically set with the "cke_editable" class
+     *	plus cke_editable_(inline|themed) depending on the editor type.
+     */
+
+    /* Style a bit the inline editables. */
+    .cke_editable.cke_editable_inline {
+        cursor: pointer;
+    }
+
+    /* Once an editable element gets focused, the "cke_focus" class is
+       added to it, so we can style it differently. */
+    .cke_editable.cke_editable_inline.cke_focus {
+        box-shadow: inset 0px 0px 20px 3px #ddd, inset 0 0 1px #000;
+        outline: none;
+        background: #eee;
+        cursor: text;
+    }
+
+    /* Avoid pre-formatted overflows inline editable. */
+    .cke_editable_inline pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    #editable {
+        padding: 10px;
+        float: left;
+        box-shadow: 0 0 1px 1px #ddd inset, 0 0 1px #000 inset;
+        margin-bottom: 20px;
+        min-height: 400px;
+        min-width: 1100px;
+    }
+
+</style>
+<script>
+    $().ready(function () {
+        $("#post_form").validate({
+            rules: {
+                post_title: {
+                    required: true,
+                    maxlength: 45
+                },
+                post_type: {
+                    required: true
+                },
+                post_source: {
+                    required: true
+                },
+                post_summary: {
+                    maxlength: 250
+                },
+                post_remark: {
+                    maxlength: 45
+                }
+            },
+            messages: {
+                post_title: {
+                    required: "必须填写标题",
+                    maxlength: "不能超过45个字符"
+                },
+                post_type: {
+                    required: "请输入分类"
+                },
+                post_source: {
+                    required: "请输入来源"
+                },
+                post_summary: {
+                    maxlength: "简介不能超过250个字"
+                },
+                post_remark: {
+                    maxlength: "备注不能超过45个字"
+                }
+
+            },
+            errorPlacement: function (error, element) {
+                error.css({display: "inline-block"});
+                error.appendTo(element.parent());
+            },
+            errorElement: "span",
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/admin/post/add',
+                    type: 'POST',
+                    data: {
+                        post_id:$('#post_id').val(),
+                        post_title: $('#post_title').val(),
+                        post_author:$('#post_author').val(),
+                        post_type: $('#post_type').val(),
+                        post_source: $('#post_source').val(),
+                        post_summary: $('#post_summary').val(),
+                        post_remark: $('#post_remark').val(),
+                        content: $('#editable').html()
+                    },
+                    dataType: 'JSON',
+                    success: function (data) {
+                        if(data.state){
+                            alert(data.message.message)
+                            $('#post_id').attr("value",data.message.postId)
+                        }else{
+                            alert(data.message.message)
+                        }
+                    }
+                });
+                return false;
+            }
+        });
+//        $('#editor').wysiwyg();
+        $('#post_summary').val('<?php if($this->post)echo $this->post["Summary"]; ?>')
+
+    })
+</script>
+
+<!--<script>-->
+<!--    $(function(){-->
+<!--        function initToolbarBootstrapBindings() {-->
+<!--            var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',-->
+<!--                    'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',-->
+<!--                    'Times New Roman', 'Verdana'],-->
+<!--                fontTarget = $('[title=Font]').siblings('.dropdown-menu');-->
+<!--            $.each(fonts, function (idx, fontName) {-->
+<!--                fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));-->
+<!--            });-->
+<!--            $('a[title]').tooltip({container:'body'});-->
+<!--            $('.dropdown-menu input').click(function() {return false;})-->
+<!--                .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})-->
+<!--                .keydown('esc', function () {this.value='';$(this).change();});-->
+<!---->
+<!--            $('[data-role=magic-overlay]').each(function () {-->
+<!--                var overlay = $(this), target = $(overlay.data('target'));-->
+<!--                overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());-->
+<!--            });-->
+<!--            if ("onwebkitspeechchange"  in document.createElement("input")) {-->
+<!--                var editorOffset = $('#editor').offset();-->
+<!--                $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});-->
+<!--            } else {-->
+<!--                $('#voiceBtn').hide();-->
+<!--            }-->
+<!--        };-->
+<!--        function showErrorAlert (reason, detail) {-->
+<!--            var msg='';-->
+<!--            if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }-->
+<!--            else {-->
+<!--                console.log("error uploading file", reason, detail);-->
+<!--            }-->
+<!--            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+-->
+<!--                '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');-->
+<!--        };-->
+<!--        initToolbarBootstrapBindings();-->
+<!--        $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );-->
+<!--        window.prettyPrint && prettyPrint();-->
+<!--    });-->
+<!--</script>-->
+
+<script type="text/javascript">
+    function checkLength(which, limit) {
+        var maxChars = limit;
+        if (which.value.length > maxChars)
+            which.value = which.value.substring(0, maxChars);
+        var curr = maxChars - which.value.length;
+        document.getElementById("chLeft").innerHTML = curr.toString();
+    }
+</script>
+
+<script>
+
+    CKEDITOR.disableAutoInline = true;
+
+    $(document).ready(function () {
+        $('#editor1').ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
+        $('#editable').ckeditor(); // Use CKEDITOR.inline().
+    });
+
+    function setValue() {
+        $('#editor1').val($('input#val').val());
+    }
+
+</script>

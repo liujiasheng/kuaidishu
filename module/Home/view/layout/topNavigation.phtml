@@ -1,0 +1,170 @@
+<script xmlns="http://www.w3.org/1999/html">
+    $(document).ready(function(){
+        //$("#inp").focus();
+        $("body #Select").each(function(i){
+            i= i+1
+            this.id = "Select" + i;
+            var SumimasenSelect = $("#Select"+i)
+            $(SumimasenSelect).find("ul li:first").hover(function(){
+//                $(".s").css("background","url(images/68_60.PNG) 0px 0px no-repeat");
+                $(this).parent("ul").css("height",84)
+                $(this).siblings("ul li:not(.s)").mouseenter(function(){
+//                    $(".s").css("background","url(images/68_60.PNG) 0px 0px no-repeat");
+                    $(this).css("background","#E4393C").css("color","#FFFFFF")
+                });
+                $(this).siblings("ul li:not(.s)").mouseleave(function(){
+                    $(this).css("background","none").css("color","#A8A8A8")
+//                    $(".s").css("background","url(images/68_60.PNG) 0px -30px no-repeat");
+                });
+                $(this).siblings("ul li:not(.s)").click(function(){
+                    $(this).parent("ul").css("height",28)
+                    var cdContent = $(this).text()
+                    $(SumimasenSelect).find("ul li:first").text(cdContent)
+                });
+                $(this).parent(SumimasenSelect).mouseleave(function(){
+                    $(this).css("height",28)
+                });
+            });
+
+        },function(){
+//            $(".s").css("background","url(images/68_60.PNG) 0px -30px no-repeat");
+
+        });
+
+        $('.dropdown-menu li').click(function(e) {
+            e.stopPropagation();
+        });
+
+        var cartTimer = null;
+        $('a.dropdown').hover(function() {
+            cartTimer = setTimeout(function(){
+                calCartTotal();
+                $('a.dropdown').parent().addClass("open");
+                $('#cart-ul-bottom').parent().removeClass("open");
+            },300);
+        },function(){
+            if(cartTimer) clearTimeout(cartTimer);
+        });
+        $('#cart-ul').mouseleave(function(){
+            $('a.dropdown').parent().removeClass("open");
+        });
+    });
+</script>
+<?php if(isset($this->isHome) && !$this->isHome):?>
+    <script xmlns="http://www.w3.org/1999/html">
+        var classListTimer = null;
+        $(document).ready(function(){
+            $('.all-sort').children('a').hover(function(){
+                classListTimer = setTimeout(function(){
+                    $('ul.menu-item').show();
+                },300);
+            },function(){
+                if(classListTimer) clearTimeout(classListTimer);
+            });
+            //menu
+            var mod_menu = $(".mod-menu");//导航模块区
+            var menu = function () {
+                var menuItem = $(".menu-item li");//选择导航列表
+                menuItem.each(function () {
+                    var _index = $(this).index();//获取当前选择菜单列表的索引
+                    $(this).mouseenter(function () {
+                        var y = $(this).position().top + 1;//获取当前鼠标滑过的列表的顶部坐标
+                        $(".menu-cont").show();
+                        $(".menu-cont").css("top", y);//需要显示的对应索引内容
+                        $(this).addClass("mouse-bg").siblings().removeClass("mouse-bg");
+                        $(".menu-cont>div").eq(_index).show().siblings().hide();
+                    });
+                });
+                /*导航菜单菜单*/
+                $(".mod-menu").mouseleave(function () {
+                    $(".menu-cont").hide();
+                    $('ul.menu-item').hide();
+                    menuItem.removeClass("mouse-bg");
+                })
+            };//展开二级菜单
+            menu();//执行展开二级菜单函
+
+        });
+    </script>
+<?php endif;?>
+<script type="text/javascript" src="<?php echo $this->basePath()?>/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath()?>/js/cart.js"></script>
+
+<!--导航 Start-->
+<div class="menu" style="width: 100%">
+    <div class="all-sort" style="font-size: large;"><a href="###" style="text-decoration: none;">全部商品分类</a></div>
+    <!--    <div class="cart">-->
+    <!--        <a href="#">-->
+    <!--            <span class="glyphicon glyphicon-shopping-cart"></span>-->
+    <!--        </a>-->
+    <!--    </div>-->
+    <div class="nav">
+        <ul class="clearfix">
+            <li><a href="/" class="">首页</a></li>
+            <li><a href="/home/seller/快递鼠超市">超市</a></li>
+            <li><a href="/allseller">加盟商</a></li>
+<!--            <li><a href="/allgoods">商品</a></li>-->
+
+        </ul>
+    </div>
+
+    <div class="btn-group pull-right cart">
+        <a href="#" class="dropdown" style="color: #ffffff; text-decoration: none;" onclick="calCartTotal()">
+            <span class="glyphicon glyphicon-shopping-cart"></span> 购物车
+            <span class="badge cart-badge">0</span> <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" id="cart-ul">
+
+
+            <li class="item account">
+                <p class="msg">共<strong class="totalCnt">0</strong>件商品  共计<strong class="totalPrice">36.0</strong>元</p>
+                <button class="btn btn-mini pull-left" style="margin-left: 10px;" onclick="clearAllItemsInCart()">
+                    <span class="glyphicon glyphicon-trash" style="color: #E4393C"></span></button>
+                <button onclick="if($(this).parent().parent().children('.item').length > 1)location.href='<?php echo $this->basePath()?>/home/cart'" class="btn btn-danger" >去购物车结算</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<?php if(isset($this->isHome) && !$this->isHome):?>
+    <?php echo isset($classMenu)?$classMenu:""?>
+<?php endif;?>
+<!--导航 End-->
+
+
+<!--底部购物车栏-->
+<nav class="navbar navbar-fixed-bottom" role="navigation" id="bottomCartNav" style="display: none">
+    <div class="container">
+        <form class="navbar-form navbar-right cart" onsubmit="{return false;}" style="
+        background-color: #E4393C;
+        width: 300px;
+        height: 34px;
+        padding-left: 0;
+        padding-right: 0;
+        margin-right: 0;
+        margin-top: 16px;
+        margin-bottom: 0;
+        cursor: pointer;
+        box-shadow: 0 0 1px 1px #E4393C;
+        " onclick="toggleBottomCart()">
+            <div class="btn-group pull-right dropdown cart" style="width:80px;">
+                <ul class="dropdown-menu" id="cart-ul-bottom" style="border-top-color: #E4393C;border-top-width: medium;">
+
+                </ul>
+            </div>
+            <button class="btn btn-danger pull-right" onclick="location.href='/home/cart';$(this).parent().children().first().addClass('open');"> 去 结 算 </button>
+            <span id="flyToThisCart" class="glyphicon glyphicon-shopping-cart pull-left" style="font-size: 20px;padding-left: 10px;padding-top: 5px"></span>
+            <div class="pull-left" style="color: #ffffff;padding-top: 7px;padding-left: 10px;">
+                <p class="msg">共<strong class="totalCnt">0</strong>件  共计<strong class="totalPrice">0.0</strong>元</p>
+            </div>
+
+        </form>
+    </div>
+</nav>
+<!--底部购物车栏 End-->
+
+<script>
+    $().ready(function(){
+        loadGoodsToCart();
+    });
+</script>

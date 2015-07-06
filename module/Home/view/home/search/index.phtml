@@ -1,0 +1,203 @@
+<div class="kuaidishuPanelTitle">
+    <?php
+    if(isset($all) && $all){
+        switch($type){
+            case "s": echo '<a class="searchNavLink" href="/search?t=s">全部商家</a>'; break;
+            case "g": echo '<a class="searchNavLink" href="/search?t=g">全部商品</a>'; break;
+            default: echo "全部"; break;
+        }
+    }else{
+        echo '搜索结果';
+    }
+    if( isset($sc) && $sc != ""){
+        if(isset($classArr[$sc]["Name"])){
+            echo ' > '.'<a class="searchNavLink" href="/search?t=g&sc='.$classArr[$sc]["ID"].'">'.$classArr[$sc]["Name"].'</a>';
+        }
+    }
+    if( isset($mc) && $mc != ""){
+        $mcArr = array();
+        if(is_array($classArr))
+            foreach($classArr as $classGroup)
+                if(is_array($classGroup["Classes"]))
+                    foreach($classGroup["Classes"] as $mcId => $class){
+                        $mcArr[$mcId] = $class;
+                    }
+        if(isset($mcArr[$mc]["Name"])) echo  ' > '.'<a class="searchNavLink" href="/search?t=g&sc='.$classArr[$sc]["ID"].'&mc='.$mcArr[$mc]["ID"].'">'.$mcArr[$mc]["Name"].'</a>';
+    }
+    if( isset($cs) && $cs !=""){
+        echo " > ".$cs;
+    }
+    if( isset($key) && $key != ""){
+        echo ' > "'.$key.'"';
+    }
+    ?>
+</div>
+
+<div class="kuaidishuPanel">
+    <div class="row-fluid clearfix">
+
+        <?php $flag = false;
+        if(isset($state) && $state):
+            if($type=="s"): ?>
+                <!--                    显示商家结果-->
+                <?php foreach ($sellers as $seller): $flag = true;?>
+                    <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                        <a href="<?php echo $this->basePath() ?>/home/seller/<?php echo $seller->getName() ?>"
+                           class="thumbnail home-thumbnail sellerThumbnail">
+                            <img src="<?php echo \Application\Model\StaticInfo::getSellerLogoAddress() ?><?php echo $seller->getLogo(); ?>"
+                                 style="height: 180px; width: 100%; display: block;">
+                        </a>
+
+                        <p class="seller-label"><?php echo $seller->getName(); ?></p>
+                    </div>
+                <?php endforeach; ?>
+                <?php if(count($sellers) >= 12):?>
+                <button class="btn btn-default form-control pushMoreBtn" data-loading-text="加载中..." onclick="pushMoreGoods()">加载更多 <span class="glyphicon glyphicon-refresh"></span></button>
+                <?php endif;?>
+
+            <?php elseif($type=="g"): ?>
+                <!--                        显示商品结果-->
+                <div class="col-sm-2 col-lg-2 col-md-2 col-xs-2 home-search-left">
+                    <div class="panel-group">
+                        <?php if(isset($classArr) && is_array($classArr) && count($classArr)>0 ):
+                             foreach($classArr as $classGroup):
+                                $classID = $classGroup["ID"];
+                                $className = $classGroup["Name"];?>
+                                 <div class="panel panel-default home-search-class-panel">
+                                     <div class="panel-heading home-search-class-heading">
+                                         <h4 class="panel-title">
+                                             <a class="classExpandLabel" style="text-decoration: none" data-toggle="collapse"
+                                                data-parent="#accordion" href="#collapse-sc-<?php echo $classID?>"><span class="glyphicon glyphicon-minus"></span></a>
+                                             <a href="/search?t=g&sc=<?php echo $classID?>">
+                                                 <?php echo $className?>
+                                             </a>
+                                         </h4>
+                                     </div>
+                                     <div id="collapse-sc-<?php echo $classID?>" class="panel-collapse collapse in">
+                                         <div class="panel-body home-search-class-body">
+                                             <?php foreach($classGroup["Classes"] as $class):?>
+                                                 <div><a href="/search?t=g&sc=<?php echo $classID?>&mc=<?php echo $class["ID"]?>">
+                                                         <?php echo $class["Name"]?>
+                                                     </a></div>
+                                             <?php endforeach;?>
+                                         </div>
+                                     </div>
+                                 </div>
+
+                            <?php endforeach; endif;?>
+
+
+                    </div>
+                </div>
+                <div class="col-sm-10 col-lg-10 col-md-10 col-xs-10">
+                    <?php foreach($goodsArr as $goods): $flag = true?>
+                        <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3" style="padding-left: 5px;padding-right: 5px;">
+                            <div class="thumbnail home-thumbnail goodsThumbnail">
+
+                                <img src="<?php echo \Application\Model\StaticInfo::getGoodsMediumAddress()?><?php echo $goods->getImage()?>"
+                                     style="height: 160px; width: 100%; display: block;" />
+                                <div class="goods-div">
+                                    <p class="goodsThumbnailName" title="<?php echo $goods->getName() ?>"><strong><?php echo $goods->getName()?></strong></p>
+                                    <p class="seller" style="display: block;"><?php echo $goods->getSellerName()?></p>
+                                    <p class="pull-right"><a class="price">
+                                            <?php //echo $goods->getPrice();
+                                            $prices = \Application\Model\CommonFunctions::getPricesFromStandards($goods->getGoodsStandards());
+                                            $max = $prices["max"];
+                                            $min = $prices["min"];
+                                            echo $min;
+                                            ?>
+                                    </a>元/<?php echo $goods->getUnit()?></p>
+
+                                    <button
+
+                                        data-toggle="popover" data-placement="bottom" data-trigger="focus" data-html="true"
+                                        data-content='
+                    <div class="btn-group-sm">
+                    <?php foreach($goods->getGoodsStandards() as $standard):?>
+                    <button class="btn btn-default buy-sub-btn <?php if($standard["State"]!="1") echo "disabled"?>"
+                      <?php if($standard["State"]=="1"):?>
+                        onclick="addGoodsToCart(<?php echo $standard["ID"]?>, $(this).parent().parent().parent().parent().parent(), <?php echo $standard["Price"]?>, $(this).text()); addToCartEffect($(this));"
+                        <?php endif;?>
+                        >
+                        <?php echo $standard["Standard"]."(".$standard["Price"]."/".$goods->getUnit().")"; ?>
+                    </button>
+                    <?php endforeach;?>
+                    </div>'
+
+                                        <?php if(count($goods->getGoodsStandards()) > 1):?>
+
+                                        <?php else:?>
+                                            onclick="addGoodsToCart(<?php echo $goods->getGoodsStandards()[0]["ID"]?>, $(this).parent().parent(), <?php echo $goods->getGoodsStandards()[0]["Price"]?>, '')"
+                                        <?php endif;?>
+
+                                        class="btn btn-default plusone <?php echo (count($goods->getGoodsStandards()) > 1)?"buy-popover":"addToCart"?>"
+                                        style="width: 80px;" <?php if($goods->State==2) echo "disabled"?>>
+
+
+                                        <?php if($goods->State==1) echo "购 买";
+                                        elseif($goods->State==2) echo "售 罄";
+                                        else echo "下 架"?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach;?>
+                    <?php if(count($goodsArr) >= 12):?>
+                    <button class="btn btn-default form-control pushMoreBtn" data-loading-text="加载中..." onclick="pushMoreGoods()">加载更多 <span class="glyphicon glyphicon-refresh"></span></button>
+                    <?php endif;?>
+                </div>
+
+            <?php endif;?>
+
+        <?php endif;?>
+        <?php if( !isset($state) || !$state || !$flag): ?>
+            <h4 style="text-align: center">没有符合的搜索结果!</h4>
+        <?php endif;?>
+
+    </div>
+</div>
+
+
+<script>
+
+    var searchData = {};
+
+    $().ready(function(){
+        initBuyPopover();
+
+        <?php if($type == "g"):?>
+        searchData = {
+            type : "g",
+            key : "<?php echo $key?$key:""?>",
+            page : 1,
+            count : 12,
+            cs : "<?php echo $csID?$csID:""?>",
+            mc : "<?php echo $mc?$mc:""?>",
+            sc : "<?php echo $sc?$sc:""?>"
+        };
+        <?php elseif($type == "s"):?>
+        searchData = {
+            type : "s",
+            key : "<?php echo $key?$key:""?>",
+            page : 1,
+            count : 12,
+            cs : "",
+            mc : "",
+            sc : ""
+        };
+        <?php endif;?>
+
+        var plusHtml = '<span class="glyphicon glyphicon-plus"></span>';
+        var minusHtml = '<span class="glyphicon glyphicon-minus"></span>';
+        $('.classExpandLabel').click(function(){
+            var text = $(this).html().trim();
+            if(text == plusHtml){
+                $(this).children('span').first().removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            }else if(text == minusHtml){
+                $(this).children('span').first().removeClass('glyphicon-minus').addClass('glyphicon-plus');
+            }
+        });
+
+    });
+</script>
+

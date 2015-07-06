@@ -1,0 +1,162 @@
+
+<div class="row-fluid">
+
+<?php if(!$isSearch):?>
+<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="padding-left: 0;">
+    <?php if( $hasGoods): ?>
+        <div class="kuaidishuPanelTitle">推荐商品</div>
+        <div class="row-fluid kuaidishuPanel clearfix">
+            <?php echo $choiceGoodsHtml?>
+        </div>
+
+        <nav class="navbar navbar-fixed-top" style="display: none;min-height: 32px;" id="navTabs">
+            <div class="container">
+                <div class="col-sm-10 col-lg-10 col-md-10 col-xs-10" style="padding-left: 0 !important;">
+                    <ul class="nav nav-tabs kuaidishuNavTabs" role="tablist" id="ul-copy" style="background-color: #ffffff;overflow:hidden;border-bottom: 2px solid #E4393C !important;">
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs kuaidishuNavTabs" role="tablist" id="ul-original" style="overflow:hidden">
+            <li class="mclass-0 active" onclick="syncTheOtherTab(0, $(this))"><a href="#mclass-0" role="tab" data-toggle="tab">全部</a></li>
+            <?php foreach ($mainClassArr as $mainClass): ?>
+                <li class="mclass-<?php echo $mainClass["ID"] ?>" onclick="syncTheOtherTab(<?php echo $mainClass["ID"] ?>, $(this))">
+                    <a href="#mclass-<?php echo $mainClass["ID"] ?>" role="tab"
+                       data-toggle="tab"><?php echo $mainClass["Name"] ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane kuaidishuPanel active" id="mclass-0">
+                <div class="row-fluid clearfix">
+                  <?php echo $allGoodsHtml?>
+                </div>
+            </div>
+            <?php foreach ($mainClassArr as $mainClass): ?>
+                <div class="tab-pane kuaidishuPanel" id="mclass-<?php echo $mainClass["ID"] ?>">
+                    <div class="row-fluid clearfix">
+                        <?php echo $mainClassGoodsHtmlArr[$mainClass["ID"]]?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+        </div>
+
+    <?php else:?>
+        <h2 style="text-align: center">还没有商品上架哦...</h2>
+    <?php endif;?>
+</div>
+
+<?php else:?>
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="padding-left: 0;">
+        <div class="kuaidishuPanelTitle">搜索结果<?php echo $key?' > "'.$key.'"':""?>
+        <a class="pull-right" href="#" onclick="window.location.href='?'" style="color: #333333;text-decoration: none;">
+            <span class="glyphicon glyphicon-chevron-left"></span> 返回商家</a>
+        </div>
+        <div class="row-fluid kuaidishuPanel clearfix" id="searchPanel">
+            <?php echo $searchGoodsHtml?>
+        </div>
+    </div>
+<?php endif;?>
+
+<?php if ($seller != null): ?>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 seller-col-right">
+        <div class="kuaidishuPanelTitle"><?php echo $seller->getName(); ?></div>
+        <div class="kuaidishuPanel" style="padding-bottom: 0 !important">
+            <img src="<?php echo \Application\Model\StaticInfo::getSellerLogoAddress() ?><?php echo $seller->getLogo(); ?>"
+                 class="seller-image"/>
+
+            <div class="kuaidishuPanelChild" style="font-weight: bold">
+                商家信息
+            </div>
+            <div class="kuaidishuPanelChild">
+                <?php echo $seller->getComment(); ?>
+            </div>
+            <div class="kuaidishuPanelChild">
+                地址：<?php echo $seller->getAddress(); ?>
+            </div>
+            <div class="kuaidishuPanelChild">
+<!--                电话：--><?php //echo $seller->getPhone(); ?>
+                服务电话：13826046484
+            </div>
+<!--            <div class="kuaidishuPanelChild">-->
+<!--                营业时段：10:40 - 21:00-->
+<!--            </div>-->
+            <div class="kuaidishuPanelChild">
+                起送价：0元
+            </div>
+        </div>
+
+        <div class="kuaidishuPanelTitle">店内搜索</div>
+        <div class="kuaidishuPanel">
+            <input id="innerSearchSID" value="<?php echo $seller->getID()?>" style="display: none;">
+<!--            <form onsubmit="innerSearch();return false;">-->
+<!--                <input type="text" class="form-control" style="border-radius: 0;" id="innerSearchText"/>-->
+<!--            </form>-->
+            <div class="input-append">
+                <form onsubmit="innerSearch();return false;">
+                    <input class="form-control span1" style="width: 75%; border-radius: 0" id="innerSearchText" type="text">
+                </form>
+                <button class="btn btn-default" style="width: 25%; border-radius: 0" type="button" onclick="innerSearch()">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </div>
+
+<!--        <div class="kuaidishuPanel" id="scrollToTop" style="display: block;">-->
+<!--            <button class="btn btn-default form-control" id="scrollup">scrolltotop</button>-->
+<!--        </div>-->
+
+
+    </div>
+<?php endif; ?>
+
+</div>
+
+
+<script>
+
+
+    searchData[0] = {
+        sellerId : <?php echo $seller->getID()?>,
+        key : "<?php echo $isSearch?$key:""?>",
+        mc : 0,
+        page : 1,
+        count : 12
+    };
+    <?php if(isset($mainClassArr)):
+        foreach($mainClassArr as $mainClass):?>
+        searchData[<?php echo $mainClass["ID"]?>] = {
+            sellerId : <?php echo $seller->getID()?>,
+            key : "",
+            mc : <?php echo $mainClass["ID"] ?>,
+            page : 1,
+            count : 12
+        };
+    <?php endforeach; endif;?>
+
+    $().ready(function(){
+        $('#ul-original').children().clone().appendTo($('#ul-copy'));
+        $(window).scroll(function(){
+            if ($(this).scrollTop() < 500) {
+                $('#navTabs').fadeOut();
+            } else {
+                $('#navTabs').fadeIn();
+            }
+        });
+    });
+
+    function syncTheOtherTab(id, obj){
+        $('#ul-original').children().removeClass('active');
+        $('#ul-copy').children().removeClass('active');
+        $('.mclass-'+id).addClass('active');
+        $('.tab-pane').removeClass('active');
+        $('#mclass-'+id).addClass('active');
+        if($('#navTabs').is(':visible')) $('html, body').animate({scrollTop:480}, 'slow');
+    }
+
+
+</script>

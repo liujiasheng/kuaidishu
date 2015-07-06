@@ -1,0 +1,38 @@
+<strong>Module:</strong>        Mobile &raquo;
+<strong>Controller:</strong>    Mobile &raquo;
+<strong>Action:</strong>        foo
+
+<textarea id="text" style="height: 500px; width: 800px">
+
+</textarea>
+
+
+<script>
+
+    $().ready(function(){
+        $('#text').val('12312');
+        hello();
+    });
+
+    function hello(){
+        var url = 'https://api.douban.com/v2/book/1220562';
+
+        $.ajax({
+            type:'get',//jquey是不支持post方式跨域的
+//            async:false,
+            url:url,//跨域请求的URL
+            dataType:'jsonp',
+            jsonp:'callback',
+            jsonpCallback:'textcb',
+            success:function(result){
+//                alert(result);
+//                $('#text').val(result['title']);
+            }
+        });
+    }
+
+    function textcb(result){
+        $('#text').val(result['title']);
+    }
+
+</script>

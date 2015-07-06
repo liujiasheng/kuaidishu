@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<script src="./require.js"></script>-->
+    <script src="../js/autobahn.min.js"></script>
+    <script>
+        var wsurl = 'ws://test.kuaidishu.com:8080/sessDemo';
+        var connection = new autobahn.Connection({
+                    url:wsurl,
+                    realm: 'realm'}
+        );
+
+        connection.onopen = function (session) {
+
+            var received = 0;
+            console.log("opened");
+            function onevent1(args) {
+                console.log("received");
+
+            }
+//
+//            session.subscribe('event:broadcast', onevent1);
+        };
+        connection.onmessage = function(arg_data){
+            console.log(arg_data)
+        };
+        connection.onclose = function(){
+            console.log("connection close")
+        };
+
+        connection.open();
+    </script>
+</head>
+<body>
+<div id="content">
+
+</div>
+</body>
+</html>

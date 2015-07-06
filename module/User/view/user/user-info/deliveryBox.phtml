@@ -1,0 +1,66 @@
+<div class="modal fade" id="myModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">添加收货地址</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id="addDeliveryAddress" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="inputReceiverName" class="col-sm-3 control-label">收货人姓名</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputReceiverName" name="inputReceiverName" placeholder="收货人姓名">
+                        </div>
+                    </div>
+
+                    <div class="form-group form-inline">
+                        <label for="Domain" class="col-sm-3 control-label">所在区域</label>
+
+                        <div class="col-sm-6">
+                            <select onchange="getDomainList()" id="Domain" name="Domain" class="form-control">
+                            </select>
+
+                            <div id="Domain2Block" style="display: inline;">
+                                -
+                                <select class="form-control" id="Domain2" name="Domain2"></select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputStreetAddress" class="col-sm-3 control-label">所在地址</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputStreetAddress" name="inputStreetAddress"
+                                   placeholder="所在地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhone" class="col-sm-3 control-label">手机号码</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPhone" name="inputPhone" placeholder="手机号码">
+                        </div>
+                    </div>
+                    <!--                    <div class="form-group">-->
+                    <!--                        <div class="col-sm-offset-2 col-sm-10">-->
+                    <!--                            <button type="submit" class="btn btn-default">提交</button>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="$('#addDeliveryAddress').submit()">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+    添加收货地址
+</button>

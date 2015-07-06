@@ -1,0 +1,19 @@
+hello world!
+
+<button class="btn btn-default" onclick="pushMsgFunc()">push a message</button>
+
+
+<script>
+    $().ready(function(){
+
+    });
+
+    function pushMsgFunc(){
+
+        $.get('/adminBase/adminBase/pushMsg',{},function(data){
+
+        },"json");
+
+    }
+
+</script>

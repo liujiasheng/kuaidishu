@@ -1,0 +1,42 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('快递鼠 - 45分钟免费送到你想要的') ?>
+    <?php echo $this->headMeta()->appendName('viewport', 'initial-scale=1.0, user-scalable=no') ?>
+
+    <!-- Le styles -->
+    <?php
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.gif'))
+//        ->prependStylesheet($this->basePath() . '/css/StickyNotes.css')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+        ->prependStylesheet($this->basePath() . '/css/home.css')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+    ?>
+
+    <!-- Scripts -->
+    <?php
+    echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+        ->prependFile($this->basePath() . '/js/jquery.min.js')
+        ->appendFile($this->basePath() . '/js/custom.js')
+        ->appendFile($this->basePath() . '/js/adminCommon.js')
+        ->appendFile($this->basePath() . '/js/adminSeller.js')
+        ->appendFile($this->basePath() . '/js/paramsCheck.js')
+        ->appendFile($this->basePath() . '/js/md5.js')
+    ?>
+
+</head>
+<body>
+<?php if($this->topNavbar) echo $this->topNavbar;?>
+<div class="container" style="padding-top: 10px;">
+    <?php if($this->adminHeader) echo $this->adminHeader;?>
+    <?php echo $this->content; ?>
+
+</div> <!-- /container -->
+<hr>
+<?php if($this->footer) echo $this->footer;?>
+<?php echo $this->inlineScript() ?>
+</body>
+</html>

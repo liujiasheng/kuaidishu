@@ -1,0 +1,219 @@
+<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+    <?php use Application\Model\OrderState;
+    use Application\Model\OrderStateMsg;
+
+    echo $menu; ?>
+</div>
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px">
+        <form id="searchForm" role="form"onsubmit="">
+            <div class="col-md-3">
+                <label for="w">员工</label>
+                <input type="text" style="height: 30px;" id="w" placeholder="员工" value="<?php if($this->searchInfo["w"]) echo $this->searchInfo["w"] ;?>">
+            </div>
+            <div class="col-md-3">
+                <label for="s">商家</label>
+                <input type="text" style="height: 30px;" id="s" placeholder="商家" value="<?php if($this->searchInfo["s"]) echo $this->searchInfo["s"] ;?>">
+            </div>
+            <div class="col-md-3">
+                <label for="o">订单号</label>
+                <input type="text" style="height: 30px;" id="o" placeholder="订单号" value="<?php if($this->searchInfo["o"]) echo $this->searchInfo["o"] ;?>">
+            </div>
+            <div>
+                <input type="submit" style="display: none;">
+            </div>
+        </form>
+
+        <table class="table ">
+            <thead>
+            <tr>
+                <td style="width: 120px">员工</td>
+                <td>订单和商家</td>
+                <td>下单时间和剩余时间</td>
+                <td>指派时间</td>
+                <td style="width: 200px">
+                    <select id="os" style="width: 130px">
+                        <option value="0"<?php if($this->searchInfo["os"]=="0") echo "selected";?>>全部</option>
+                        <option value="1"<?php if($this->searchInfo["os"]=="1") echo "selected";?>>等待确认订单</option>
+                        <option value="2"<?php if($this->searchInfo["os"]=="2") echo "selected";?>>已确认订单</option>
+                        <option value="3"<?php if($this->searchInfo["os"]=="3") echo "selected";?>>已拒绝订单</option>
+                        <option value="9"<?php if($this->searchInfo["os"]=="9") echo "selected";?>>已完成订单</option>
+                    </select></td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->list as $item): ?>
+                <tr>
+                    <td>
+                        <div>
+                            工号：<?php echo $item["WorkerAccount"]; ?>
+                        </div>
+                        <div>
+                            员工：<?php echo $item["WorkerName"]; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            订单：<?php echo $item["OrderID"]; ?>
+                        </div>
+                        <div>
+                            商家：<?php echo $item["SellerName"]; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div><?php echo $item["OrderTime"]; ?></div>
+                        <div class="lxftime" endtime="<?php
+                        $time = \Application\Model\CommonFunctions::getExpectedDeliveredTime($item["OrderTime"]);
+                        $time = str_replace('-','/',$time);
+                        echo $time;
+                        ?>" ></div>
+<!--                        <div>--><?php //echo $time; ?><!--</div>-->
+                    </td>
+                    <td>
+                        <?php echo $item["AppointTime"]; ?>
+                    </td>
+                    <td>
+                        <?php
+                        /*
+                        1:Wait Confirm
+                        2:Confirm and Appoint Worker
+                        3:Reject and Set Comment
+                        9:End Mission
+                        */
+
+                        switch($item["State"]){
+                            case OrderState::WAITING_CONFIRM:
+                                echo OrderStateMsg::WAITING_CONFIRM;
+                                break;
+                            case OrderState::CONFIRM_AND_APPOINT_TO_WORKER:
+                                echo OrderStateMsg::CONFIRM_AND_APPOINT_TO_WORKER;
+                                break;
+                            case OrderState::REJECT_AND_SET_COMMENT:
+                                echo OrderStateMsg::REJECT_AND_SET_COMMENT;
+                                ?><div>
+                                拒绝原因：<?php
+                                if($item["Comment"]=='')
+                                    echo "无";
+                                else
+                                    echo $item["Comment"];?>
+                                </div>
+                                <?php
+                                break;
+                            case OrderState::END_MISSION:
+                                echo OrderStateMsg::END_MISSION;
+                                break;
+                            default:
+                                echo OrderStateMsg::OTHER;
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+            </tbody>
+        </table>
+        <ul class="pager">
+            <li><a id="preLink" href="#">上一页</a></li>
+            <li><span>第<span id="currentPage"><?php echo $this->page; ?></span>页/共<span
+                        id="totalPage"><?php echo $this->pages; ?></span>页</span></li>
+            <li><a id="nextLink" href="#">下一页</a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+
+    $().ready(function () {
+        var page = $('#currentPage').html();
+        var total = $('#totalPage').html();
+
+        if (page == "1") {
+            $('.pager li:first-child').html('<span >上一页</span>')
+
+
+        } else {
+            $('.pager li:first-child').html('<a id="preLink" href="?page=' + (parseInt(page) - 1) +
+                '" >上一页</a>');
+            $('#preLink').on('click',function(event){
+                event.preventDefault();
+                var worker = $("#w").val();
+                var order = $("#o").val();
+                var seller = $("#s").val();
+                var orderState = $('#os').val();
+                window.location.href = '?page=' + (parseInt(page) - 1)+"&w="+worker+"&s="+seller+"&o="+order+"&os="+orderState;
+            })
+
+        }
+
+        if (page == total) {
+            $('.pager li:last-child').html('<span>下一页</span>')
+        } else {
+            $('.pager li:last-child').html('<a id="nextLink" href="?page=' + (parseInt(page) + 1) +
+                '" >下一页</a>');
+            $('#nextLink').on('click',function(event){
+                event.preventDefault();
+                var worker = $("#w").val();
+                var order = $("#o").val();
+                var seller = $("#s").val();
+                var orderState = $('#os').val();
+                window.location.href = '?page=' + (parseInt(page) + 1)+"&w="+worker+"&s="+seller+"&o="+order+"&os="+orderState;
+            })
+
+        }
+
+        $('#os').on('change',function(event){
+            var page = $('#currentPage').html();
+            var total = $('#totalPage').html();
+            var worker = $("#w").val();
+            var order = $("#o").val();
+            var seller = $("#s").val();
+            var orderState = $('#os').val();
+            window.location.href = '?page=' + (parseInt(page))+"&w="+worker+"&s="+seller+"&o="+order+"&os="+orderState;
+        })
+
+
+    });
+    $('#searchForm').submit(function(event){
+        event.preventDefault();
+        var page = $('#currentPage').html();
+        var total = $('#totalPage').html();
+        var worker = $("#w").val();
+        var order = $("#o").val();
+        var seller = $("#s").val();
+        var orderState = $('#os').val();
+        window.location.href = '?page=' + (parseInt(page))+"&w="+worker+"&s="+seller+"&o="+order+"&os="+orderState;
+    });
+
+
+
+</script>
+<script>
+    function lxfEndtime(){
+        $(".lxftime").each(function(){
+            var lxfday=$(this).attr("lxfday");//用来判断是否显示天数的变量
+            var endtime = new Date($(this).attr("endtime")).getTime();//取结束日期(毫秒值)
+            var nowtime = new Date().getTime();        //今天的日期(毫秒值)
+            var youtime = endtime-nowtime;//还有多久(毫秒值)
+            var seconds = youtime/1000;
+            var minutes = Math.floor(seconds/60);
+            var hours = Math.floor(minutes/60);
+            var days = Math.floor(hours/24);
+            var CDay= days ;
+            var CHour= hours % 24;
+            var CMinute= minutes % 60;
+            var CSecond= Math.floor(seconds%60);//"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
+            if(endtime<=nowtime){
+                $(this).html("已过期");//如果结束日期小于当前日期就提示过期啦
+            }else{
+                if($(this).attr("lxfday")=="no"){
+                    $(this).html("<i>剩余时间：</i><span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出没有天数的数据
+                }else{
+                    $(this).html("<i>剩余时间：</i><span>"+days+"</span><em>天</em><span>"+CHour+"</span><em>时</em><span>"+CMinute+"</span><em>分</em><span>"+CSecond+"</span><em>秒</em>");          //输出有天数的数据
+                }
+            }
+        });
+        setTimeout("lxfEndtime()",1000);
+    }
+    $(function(){
+        lxfEndtime();
+    });
+</script>

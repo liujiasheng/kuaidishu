@@ -1,0 +1,15 @@
+
+<?php foreach($sellers as $seller):?>
+    <div class="mobile-seller-group" onclick="location.href='/m/s/<?php echo $seller->getName()?>'">
+        <div class="image">
+            <img src="http://static.kuaidishu.com/sellerlogo/<?php echo $seller->getLogo()?>"/>
+        </div>
+        <div class="content">
+            <p class="name"><?php echo $seller->getName()?></p>
+            <p class="intro"><?php echo $seller->getComment()?></p>
+        </div>
+        <div class="comment">
+
+        </div>
+    </div>
+<?php endforeach;?>

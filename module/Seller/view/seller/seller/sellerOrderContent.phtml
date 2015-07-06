@@ -1,0 +1,217 @@
+<div class="content-top">
+    <h5 class="ContentHeadTitle">订单管理
+        <a class="haveNewOrderMsg" href="" style="display:none; margin-left: 10px;font-weight: lighter;">
+            你有 <b class="count">0</b> 条新的订单
+        </a>
+        <a href="#" class="pull-right" style="margin-right: 10px" onclick="getNewerOrder()">test</a>
+    </h5>
+    <hr>
+</div>
+
+<div>
+    <table id="SellerOrderTable" class="table table-bordered seller-hover">
+        <thead>
+        <tr>
+            <td>订单编号</td>
+            <td>下单时间</td>
+            <td>订单状态</td>
+            <td>总金额</td>
+            <td>商品编号</td>
+<!--            <td>商品图片</td>-->
+            <td>商品名称 (点击查看）</td>
+            <td>商品单价</td>
+            <td>商品数量</td>
+<!--            <td>操作</td>-->
+        </tr>
+        </thead>
+        <?php
+        use Application\Model\OrderState;
+        use Application\Model\OrderStateMsg;
+
+        $odd = 0;
+        if($this->orderIdList)
+        foreach($this->orderIdList as $ID):
+        $odd = 1-$odd;
+        ?>
+<!--        <tbody style="background-color: --><?php //echo $odd==1?"#F6F6F6":"#FFFFFF"; ?><!--">-->
+        <tbody>
+<!--        <tr>-->
+<!--            <td colspan="6">-->
+<!--                <span style="padding-right: 5px">订单编号：--><?php //echo $ID;?><!--</span>-->
+<!--                <span style="padding-right: 5px">下单时间：<span style="color: #ff0000;font-weight: bold;">--><?php //echo $this->orderList[$ID]["OrderTime"];?><!--</span></span>-->
+<!--                <span style="padding-right: 5px">总金额：<span style="color: #ff0000;font-weight: bold;">--><?php //echo number_format($this->orderList[$ID]["Total"],2);?><!--</span>元</span>-->
+<!--            </td>-->
+<!--        </tr>-->
+            <?php
+            $order = $this->detailList[$ID];
+            $count = 0;
+            $rowspan = count($order);
+            if($order)
+            foreach($order as $goodID => $goods):
+            ?>
+
+            <tr>
+                <?php if($count==0):?>
+                <td rowspan="<?php echo $rowspan;?>"><?php echo $ID;?></td>
+                <td rowspan="<?php echo $rowspan;?>"><?php echo $this->orderList[$ID]["OrderTime"];?></td>
+                <td rowspan="<?php echo $rowspan;?>">
+                    <?php
+                    switch($this->orderList[$ID]["State"]){
+                        case OrderState::WAITING_CONFIRM:
+                            echo OrderStateMsg::WAITING_CONFIRM;
+                            break;
+                        case OrderState::CONFIRM_AND_APPOINT_TO_WORKER:
+                            echo OrderStateMsg::CONFIRM_AND_APPOINT_TO_WORKER;
+                            break;
+                        case OrderState::REJECT_AND_SET_COMMENT:
+                            echo OrderStateMsg::REJECT_AND_SET_COMMENT;
+                            break;
+                        case OrderState::END_MISSION:
+                            echo OrderStateMsg::END_MISSION;
+                            break;
+                        default:
+                            echo OrderStateMsg::OTHER;
+                    }
+                    ?>
+                </td>
+                <td rowspan="<?php echo $rowspan;?>"><span style="color: #ff4f1f;font-weight: bold"><?php echo number_format($this->orderList[$ID]["Total"],2);?></span></td>
+                <?php
+                $count=1;
+                endif;?>
+                <td style="vertical-align: 50%"><?php echo $goods["ID"];?></td>
+<!--                <td><img onmouseover="showClearImg('--><?php //echo "http://".imgServer."/goodsimg/large/".$goods['Image']; ?><!--','--><?php //echo $goods['ID'];?><!--')" id="--><?php //echo $goods['ID'];?><!--" style="padding: 1px;width: 50px;height: 50px;" title="--><?php //echo $goods['Name']; ?><!--" src="http://--><?php //echo imgServer ?><!--/goodsimg/tiny/--><?php //echo $goods['Image'];?><!--"></td>-->
+<!--                <td>-->
+<!--                    <a onmouseover="$(this).easyZoom()" class="zoom" href="http://--><?php //echo imgServer ?><!--/goodsimg/large/--><?php //echo $goods['Image'];?><!--" >-->
+<!--                        <img id="--><?php //echo $goods['ID'];?><!--"  style="padding: 1px;width: 50px;height: 50px;" title="--><?php //echo $goods['Name']; ?><!--" src="http://--><?php //echo imgServer ?><!--/goodsimg/tiny/--><?php //echo $goods['Image'];?><!--">-->
+<!--                    </a>-->
+<!--                </td>-->
+<!--                <td><img id="--><?php //echo $goods['ID'];?><!--"  style="padding: 1px;width: 50px;height: 50px;" title="--><?php //echo $goods['Name']; ?><!--" src="http://--><?php //echo imgServer ?><!--/goodsimg/tiny/--><?php //echo $goods['Image'];?><!--"></td>-->
+                <td><a href="http://<?php echo imgServer ?>/goodsimg/large/<?php echo $goods['Image'];?>" data-lightbox="image-1" data-title="<?php echo $goods["Name"];?>"><?php echo $goods["Name"];?></a></td>
+                <td><?php echo number_format($goods["Price"],2);?></td>
+                <td><?php echo $goods["Count"];?></td>
+<!--                <td><a href="#">详情</a></td>-->
+            </tr>
+        <?php endforeach;?>
+            <tr>
+                <td colspan="6">用户备注：<?php $cmt = $this->orderList[$ID]["Remark"];echo $cmt?$cmt:"空"?></td>
+                <td colspan="2">合计：<?php echo $this->orderList[$ID]["Total"]?>元</td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+<!--    <div id="clearPicBox">-->
+<!--        <img src="" />-->
+<!--    </div>-->
+    <ul class="pager">
+        <li><a id="preLink" href="#">上一页</a></li>
+        <li><span>第<span id="currentPage"><?php echo $this->pager["page"]; ?></span>页/共<span id="totalPage"><?php echo $this->pager["pages"]; ?></span>页</span></li>
+        <li><a id="nextLink" href="#">下一页</a></li>
+    </ul>
+</div>
+
+<audio preload="auto" id="player" autobuffer>
+    <source src="/media/haveneworder.mp3" />
+<!--    <source src="http://tts.baidu.com/text2audio?lan=zh&pid=101&ie=UTF-8&text=你有新的订单 请查收。&spd=2" />-->
+</audio>
+
+<style>
+    .content-top{
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+    .content-top>hr{
+        border-width: 2px 0 0;
+        border-color:red;
+        margin-bottom: 0;
+        margin-top: 12px;
+    }
+    .ContentHeadTitle{
+        font-size: 20px;
+        margin-top: 12px;
+        margin-left: 12px;
+        font-weight:bolder;
+    }
+
+    #clearPicBox{
+        z-index: 100;
+    }
+
+    #clearPicBox > img {
+        border: 2px solid #d9d9d9;
+    }
+
+    #easy_zoom{
+        border:5px solid #eee;
+        color:#333;
+        overflow:hidden;
+        -moz-box-shadow:0 0 10px #777;
+        -webkit-box-shadow:0 0 10px #777;
+        box-shadow:0 0 10px #777;
+        /* vertical and horizontal alignment used for preloader text */
+        line-height:400px;
+        text-align:center;
+        position: fixed;
+        left: 50px;
+        bottom: 50px;
+        width: 200px;
+        height: 200px;
+    }
+
+    .seller-hover{
+
+    }
+    .seller-hover>tbody:hover{
+        background-color: #f5f5f5;
+    }
+</style>
+
+<script>
+
+    $().ready(function(){
+        var page = $('#currentPage').html();
+        var total = $('#totalPage').html();
+
+        if(page=="1"){
+            $('.pager li:first-child').html('<span >上一页</span>')
+
+
+        }else{
+            $('.pager li:first-child').html('<a id="preLink" href="?page=' + (parseInt(page)-1) +
+                '" >上一页</a>');
+
+        }
+
+        if(page==total){
+            $('.pager li:last-child').html('<span>下一页</span>')
+        }else{
+            $('.pager li:last-child').html('<a id="nextLink" href="?page=' +(parseInt(page)+1) +
+                '" >下一页</a>');
+
+        }
+
+        //refreshPageDelay
+//        refreshPageDelay();
+
+        //play have new order mp3
+//        $('#player').get(0).play();
+
+    });
+    function showPicture(arg_imgPath){
+
+        $('#goodsPicture').attr('src',arg_imgPath);
+        $('#pictureModal').modal('show')
+    }
+
+    var delaySeconds = 180;// 3 minutes
+    var timer = null;
+    function refreshPageDelay(){
+        if(timer) clearTimeout(timer);
+        timer = setTimeout(function(){
+            window.location.reload();
+        }, delaySeconds * 1000);
+    }
+
+    var sellerId = '<?php if($sellerId) echo $sellerId; else echo "0"?>';
+
+
+</script>

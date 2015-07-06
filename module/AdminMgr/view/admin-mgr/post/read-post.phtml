@@ -1,0 +1,18 @@
+<?php
+/** @var $post Post */
+use Application\Entity\Post;
+
+?>
+<div style="padding: 25px">
+<!--    <div>--><?php //echo $post->getDate(); ?><!--</div>-->
+<!--    <h1>--><?php //echo $post->getTitle();?><!--</h1>-->
+<!---->
+<!--    <div>--><?php //echo $post->getType(),$post->getSource();?><!--</div>-->
+<!--    <hr>-->
+    <?php
+
+
+    $post = $this->post;
+    echo $post->getContent();
+    ?>
+</div>

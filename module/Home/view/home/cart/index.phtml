@@ -1,0 +1,82 @@
+<script type="text/javascript" src="<?php echo $this->basePath()?>/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath()?>/js/cart.js"></script>
+
+<?php
+$totalCnt = 0;
+$totalMoney = 0;
+?>
+<div style="padding-top: 10px; padding-bottom: 20px;">
+    <div style="display:inline; font-weight: bold; font-size: x-large">
+        <span class="glyphicon glyphicon-shopping-cart"></span> 我的购物车
+    </div>
+    <img src="<?php echo $this->basePath() ?>/images/确认商品信息1.png" class="pull-right"/>
+</div>
+<div>
+    <div style="display: inline;font-size: large;font-weight: bold">确认商品信息</div>
+    <div class="cart-divider"></div>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th width="50%">商品</th>
+        <th width="12%">单价</th>
+        <th width="13%">数量</th>
+        <th width="12%">小计</th>
+        <th width="13%">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($goods as $goodsGroup):
+        $sellerName = reset($goodsGroup)["sellerName"];?>
+        <tr>
+            <td colspan="5" style="font-size: large; font-weight: bold;">
+                <a href="<?php echo $this->basePath()."/home/seller/".$sellerName;?>" style="color: #E4393C;">
+                    <?php echo $sellerName?></a>
+            </td>
+        </tr>
+        <?php foreach($goodsGroup as $good):
+            $totalCnt += intval($good["count"]);
+            $totalMoney += floatval( floatval($good["price"]) * intval($good["count"]) );
+        ?>
+        <tr class="tr-item">
+            <td>
+                <img class="cart-image" src="<?php echo \Application\Model\StaticInfo::getGoodsTinyAddress().$good['image']?>"/>
+                <?php echo $good["name"]?><?php echo $good["standard"]=="默认"?"":"(".$good["standard"].")"?>
+            </td>
+            <td class="price"><?php echo $good["price"]?></td>
+            <td>
+                <input type="number" style="width: 45px; text-align: center;" class="count" min="1" onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                       value="<?php echo $good["count"]?>" onchange="changeGoodsCount(<?php echo $good["id"]?>,$(this).val())" />
+            </td>
+            <td class="total"><?php echo sprintf("%.1f",floatval($good["price"])*intval($good["count"])) ?></td>
+            <td><a href="###" onclick="delGoodsInCart(<?php echo $good["id"]?>, $(this))">删除</a> </td>
+        </tr>
+        <?php endforeach;?>
+    <?php endforeach;?>
+
+
+
+    </tbody>
+</table>
+
+<div style="height: 30px">
+    <p class="cart-total">共 <strong class="count"><?php echo $totalCnt;?></strong> 件商品 &nbsp;&nbsp;&nbsp;
+        金额：<strong class="total"><?php echo sprintf("%.1f",$totalMoney);?></strong> </p>
+</div>
+
+<div style="padding-top: 10px;">
+    <button class="btn btn-default" onclick="window.location.href='/'">继续购物</button>
+    <button class="btn btn-danger pull-right" data-loading-text="去结算..."
+            onclick="confirmCart($(this))">去结算
+        <span style="color: #ffffff !important" class="glyphicon glyphicon-ok"></span></button>
+</div>
+
+<script>
+    function confirmCart(btn){
+        if( parseFloat($('.cart-total').children('.total').text()) < 0.00001){
+            $.ambiance({message:"购物车为空"});
+        }else{
+            btn.button('loading');location.href='order#fillAddress';
+        }
+    }
+</script>

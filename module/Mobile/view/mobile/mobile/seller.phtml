@@ -1,0 +1,60 @@
+<nav class="navbar navbar-default navbar-mobile-home" >
+    <div class="container">
+        <div class="row-fluid navbar-mobile-home content">
+            <div class="left" onclick="location.href='/mobile'">
+                <span style="color: white !important" class="glyphicon glyphicon glyphicon-chevron-left"></span>
+            </div>
+            <div class="middle">
+                <?php echo $seller->getName()?>
+            </div>
+            <div class="right" onclick="toggleTopSearch()">
+                <span style="color: white !important" class="glyphicon glyphicon glyphicon-search"></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="mobile-top-search">
+    <div class="input-append">
+        <form onsubmit="innerSearch();return false;" style="width: 75%;float: left">
+            <input class="form-control span1" style="width: 100%; border-radius: 0" id="innerSearchText" type="text">
+        </form>
+        <button class="btn btn-default" style="width: 25%; border-radius: 0" type="button" onclick="innerSearch()">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+</div>
+
+<div class="mobile-seller-menu">
+    <?php echo $menuHtml?>
+</div>
+
+<div class="mobile-seller-goods">
+   <?php echo $goodsHtml?>
+
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom navbar-mobile-bottom" role="navigation">
+    <div class="content row-fluid">
+        <div class="left pull-left">
+            <span class="glyphicon glyphicon-shopping-cart" style="color: white !important"></span>
+            <span style="font-size: large" class="badge" id="mobile-cart-badge">0</span>
+            共 <span id="mobile-cart-total">0.0</span> 元
+        </div>
+        <div class="right pull-right">
+            <button class="btn btn-danger" onclick="location.href='/m/order'">结  算</button>
+        </div>
+    </div>
+</nav>
+
+<script>
+    function toggleTopSearch(){
+        if($('.mobile-top-search').hasClass('active')){
+            $('.mobile-top-search').removeClass('active', 500);
+        }else{
+            $('.mobile-top-search').addClass('active', 500);
+        }
+    }
+
+</script>

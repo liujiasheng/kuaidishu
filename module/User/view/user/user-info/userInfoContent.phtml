@@ -1,0 +1,57 @@
+
+
+<div class="content-top">
+    <h5 class="ContentHeadTitle">个人信息</h5>
+    <hr>
+</div>
+
+<style>
+    .content-top{
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+    .content-top>hr{
+        border-width: 2px 0 0;
+        border-color:red;
+        margin-bottom: 0px;
+        margin-top: 12px;
+    }
+    .ContentHeadTitle{
+        font-size: 20px;
+        margin-top: 12px;
+        margin-left: 12px;
+        font-weight:bolder;
+    }
+</style>
+        <form id="userinfoForm" class="form-horizontal" role="form" onsubmit="false">
+            <div class="form-group">
+                <label for="inputUsername" class="col-sm-1 control-label">账号</label>
+                <div class="col-sm-3">
+                    <h5 id="inputUsername"><?php echo isset($userinfo['username'])?$userinfo['username']:''; ?></h5>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputNickName" class="col-sm-1 control-label">昵称</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" value="<?php echo $userinfo['nickname']; ?>" id="inputNickName" name="inputNickName" placeholder="昵称">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputEmail" class="col-sm-1 control-label">邮箱</label>
+                <div class="col-sm-3">
+                    <input type="email" class="form-control" value="<?php echo $userinfo['email']; ?>" id="inputEmail" name="inputEmail" placeholder="邮箱">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPhone" class="col-sm-1 control-label">电话</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" value="<?php echo $userinfo['phone']; ?>" id="inputPhone" name="inputPhone" placeholder="电话">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button  id="submitUserInfo" onclick="" class="btn btn-default">保存</button>
+                </div>
+            </div>
+        </form>

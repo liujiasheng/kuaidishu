@@ -1,0 +1,59 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var mod_menu = $(".mod-menu");//导航模块区
+        var menu = function () {
+            var menuItem = $(".menu-item li");//选择导航列表
+            menuItem.each(function () {
+                var _index = $(this).index();//获取当前选择菜单列表的索引
+                $(this).mouseenter(function () {
+                    var y = $(this).position().top + 1;//获取当前鼠标滑过的列表的顶部坐标
+                    $(".menu-cont").show();
+                    $(".menu-cont").css("top", y);//需要显示的对应索引内容
+                    $(this).addClass("mouse-bg").siblings().removeClass("mouse-bg");
+                    $(".menu-cont>div").eq(_index).show().siblings().hide();
+                });
+            });
+            /*导航菜单菜单*/
+            $(".mod-menu").mouseleave(function () {
+                $(".menu-cont").hide();
+                menuItem.removeClass("mouse-bg");
+            })
+        };//展开二级菜单
+        menu();//执行展开二级菜单函
+    });
+
+    $(function(){
+        $('#silder').imgSilder({
+            s_width:'100%', //容器宽度
+            s_height:285, //容器高度
+            is_showTit:false, // 是否显示图片标题 false :不显示，true :显示
+            s_times:4000, //设置滚动时间
+            css_link:'css/style.css'
+        });
+    });
+</script>
+
+<!--<div class="top"></div>-->
+
+<div style="width:100%; height:285px; margin-top: 1px">
+<?php echo $classMenu?>
+
+
+<div style="float:right; width:928px;">
+
+    <div class="silder" id="silder">
+        <ul class="silder_list" id="silder_list">
+            <li><a href="###"><img src="http://static.kuaidishu.com/images/homeslider3.jpg" border="0" alt="img3"></a> </li>
+            <li><a href="###"><img src="http://static.kuaidishu.com/images/homeslider1.jpg" border="0" alt="img1"></a> </li>
+            <li><a href="http://item.yhd.com/item/41398288?tc=3.0.5.41398288.8&tp=51" target="_blank"><img src="http://static.kuaidishu.com/images/homeslider2.jpg" border="0" alt="img2"></a> </li>
+        </ul>
+    </div>
+
+
+
+    <br/><br/><br/><br/><br/>
+</div>
+
+
+</div>
+
